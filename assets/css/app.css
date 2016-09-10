@@ -5,12 +5,12 @@
 
 html, body {
    padding-left: 125px;
-  height: 100%;
-  padding-top: 10px;
-  color:rgb(106,117,124);
-  background-color: #f5f5f5;
-  font-size: 13px;
-  font-family: 'Roboto', sans-serif;
+   height: 100%;
+   padding-top: 10px;
+   color:rgb(106,117,124);
+   background-color: #f5f5f5;
+   font-size: 13px;
+   font-family: 'Roboto', sans-serif;
 }
 
 @media (min-width: 992px) {
@@ -121,7 +121,7 @@ th{
   text-align: center;
   color:rgb(255,255,250);
   font-size: 14px;
-  background-color:#0069a3;
+  background-color: #000000;
 }
 
 tr{
@@ -132,7 +132,7 @@ tr{
 
 
 .navmenu-default {
-    background-color: #0069a3;
+    background-color: black;
     border-color: rgb(255,255,250);
     color: #fff;
     font-size: 16px;
@@ -144,7 +144,7 @@ tr{
 
 .navmenu>ul>li{
     cursor:pointer;
-    background-color: #0069a3;
+    background-color: black;
     padding-top: 8px;
     padding-bottom: 8px;
     width: 100%;
@@ -153,11 +153,11 @@ tr{
 
 .navmenu>ul>li.active {
   cursor:pointer;
-    background-color: #69BEEB;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 100%;
-    padding-left: 35px;
+  background-color: #467AAC;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  padding-left: 35px;
 }
   
 .navmenu>ul>li>ul.dropdown-menu {
@@ -333,16 +333,16 @@ tr{
   margin-bottom: 10px;
   margin-left: 30px;
   margin-right: 30px;
-  border-top: 1px solid #69BEEB;
+  border-top: 1px solid #467AAC;
 }
 
 
 h5{
   margin-top: 6px;
   margin-bottom: 5px;
-    font-size: 18px;
-    color:#0081c6;
-    font-weight: 500;
+  font-size: 18px;
+  color: #69beeb;
+  font-weight: 500;
 }
 
 h1{
@@ -353,12 +353,12 @@ h1{
 h4{
   margin-top: 6px;
   margin-bottom: 5px;
-    font-size: 24px;
-  color:#0081c6;
-    font-weight: 800;
+  font-size: 24px;
+  color: #69beeb;
+  font-weight: 800;
 }
 .text-or{
-  color:#f29100;
+  color: #FFC107;
 }
 
 .text-gr{
