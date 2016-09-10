@@ -1,0 +1,129 @@
+<div ng-include="'conciliacion/core/navbar/navbar.html'" ng-controller="navbarController" ></div>
+
+<div class="container" ng-if="labels.loading" >
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<div class="data-tile">
+				<i class="fa fa-spinner fa-pulse" style="font-size:50px"></i>
+				<h3> {{labels.loadError}}</h3>	
+			</div>
+		</div>
+	</div>	
+</div>
+
+
+
+
+
+
+<div class="container" ng-if="!labels.loading">	
+		<br> 
+	<uib-tabset>
+
+	    <uib-tab  heading="Informacion personal">
+	    	<div class="data-tile " >
+		    	<div class="row" style="height:100px">
+					<div class="col-sm-12 col-md-12 col-xs-12 "><button class="btn btn-default btn-sm pull-right" ng-click="vm.editPD(vm.patient)" uib-tooltip="Editar datos personales"><i class="fa fa-pencil"></i></button>
+							<strong style="font-size:24px">{{ vm.patient.nombrePaciente }} {{ vm.patient.apellidoPaternoPaciente }} {{ vm.patient.apellidoMaternoPaciente}}  </strong> <br>
+							<strong>Ingreso </strong> - {{vm.patient.clinical.ingresoDatosClinicos |limitTo:11}}
+					</div>
+					<div class="col-sm-4 col-md-3 col-xs-4 ">
+							<strong>Identificador</strong> - {{ vm.patient.clinical.identificadorPacienteDatosClinicos }}<br>
+							<strong>Edad</strong> - {{ vm.patient.edad }} años
+					</div>
+					<div class="col-sm-4 col-md-3 col-xs-4 ">
+							<strong>Cama</strong> - {{ vm.patient.clinical.camaDatosClinicos }} <br>
+							<strong>Servicio</strong> - {{ vm.patient.clinical.nombreServicio }}
+					</div>	 
+					<div class="col-sm-1 " >
+						
+					</div>  	
+		    	</div>
+	    	</div>
+	    </uib-tab>	  
+	    <uib-tab  heading="Informacion general">
+	    	<div class="data-tile " >
+		    	<div class="row" style="height:100px">
+		    		<div class="col-xs-4 col-sm-4">
+		    			<strong>Medico</strong><br>	 {{vm.patient.clinical.doctorDatosClinicos}}    		
+		    		</div>
+		    		<div class="col-xs-4 col-sm-4">
+		    			 <strong>Peso</strong> - {{vm.patient.clinical.pesoDatosClinicos}} kg<br>
+		    			 <strong>Estatura</strong> - {{vm.patient.clinical.tallaDatosClinicos}} cm
+		    		</div>
+		    		<div class="col-xs-4 col-sm-4"><button class="btn btn-default btn-sm pull-right" ng-click="vm.editCD(vm.patient)"  uib-tooltip="Editar datos clinicos" > <i class="fa fa-pencil"></i></button>	
+		    			 <strong>IMC</strong> - {{vm.patient.clinical.imcDatosClinicos}}%<br>
+		    			 <strong>ASC</strong> - {{vm.patient.clinical.ascDatosClinicos}}m2			    		
+		    		</div>
+		    	</div>
+	    	</div>
+	    </uib-tab>
+    
+	    <uib-tab heading="Datos Clinicos">
+	    	<div class="data-tile " >
+	    		<div class="row" style="height:100px">
+		    		<div class="col-xs-6 col-sm-6">
+		    			<strong>Motivo de Hospitalización</strong> <br>
+		    			{{vm.patient.clinical.motivoDatosClinicos}}  			    		
+		    		</div>
+		    		<div class="col-xs-6 col-sm-6">
+		    			<strong>Diagnostico</strong> <br>
+		    			{{vm.patient.clinical.diagnosticoDatosClinicos}}  			    		
+		    		</div>		    		
+			    </div>
+	    	</div>    
+	    </uib-tab>
+
+	    <uib-tab heading="Alergias">
+	    	<div class="data-tile " >
+	    		<div class="row" style="height:100px">
+		    		<div class="col-md-12">
+		    			<ul ng-if="vm.patient.alergy.length > 0">
+		    				<li  class="col-xs-4 col-sm-3" ng-repeat="alergia in vm.patient.alergy">{{alergia.nombreAlergia}}</li>
+		    			</ul>
+		    			<div ng-if="vm.patient.alergy.length == 0"><strong>No se reportaron alergias</strong></div>
+		    		</div>
+			    </div>
+	    	</div>    
+	    </uib-tab>
+    </uib-tabset>
+  		<br>
+	<uib-tabset>
+		<uib-tab  heading="Prescripción"  >
+			<div ng-hide="!vm.patient.prescription" ng-include="'conciliacion/components/profile/templates/prescripcion.html'"></div>
+			<div ng-if="!vm.patient.prescription">
+				<div class="data-tile">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<h3>no hay prescripción de ingreso</h3>
+							<button class="btn btn-primary btn-lg" ng-click="vm.nuevaConciliacion()">Capturar nueva prescripción</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</uib-tab>
+
+		<uib-tab  heading="Historial" ng-hide="!vm.patient.prescription"  >
+			<div ng-include="'conciliacion/components/profile/templates/historial.html'"></div>
+		</uib-tab>
+
+		<uib-tab   ng-click="vm.patientAlert()" ng-hide="!vm.patient.prescription"  >
+			<uib-tab-heading>
+		      <li role="presentation" class="active">Notificaciones <span class="badge">{{vm.alertas.idoneidad.length + vm.alertas.conciliacion.length }}</span></li>
+		    </uib-tab-heading>
+			<div ng-include="'conciliacion/components/profile/templates/notificaciones.html'"></div>
+		</uib-tab>
+
+
+		<uib-tab  ng-click="vm.patientAlert()" ng-hide="!vm.patient.prescription"   >
+			<uib-tab-heading>
+		      <li role="presentation" class="active">Interacciones <span class="badge">{{vm.alertas.interacciones.a.length + vm.alertas.interacciones.length}}</span></li>
+		    </uib-tab-heading>
+			<div ng-include="'conciliacion/components/profile/templates/interacciones.html'"></div>
+		</uib-tab>
+
+
+
+	</uib-tabset>
+</div>	

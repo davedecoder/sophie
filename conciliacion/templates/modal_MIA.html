@@ -1,0 +1,52 @@
+<div class="modal-header">
+	<h3 class="text-center "> {{ titulo }} </h3>
+</div>
+<div class="modal-body">
+	<form name="MIA">
+		<div class="row">
+		<h4 class="col-sm-10 col-sm-offset-1 text-justified">
+			<strong>
+				Se ha detectado una interacción en esta prescripción, para terminar la evaluacion de idoneidad es nesario reportar este problema.		
+			</strong><br><br>
+		</h4>	
+
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<h4 text-center>Medicamentos involucrados</h4>
+				<ul >
+					<li  class="col-xs-8 col-sm-offset-2" ng-repeat="principio in interaccion.medicamentos track by $index"><strong>{{principio.nombrePrincipio}}</strong></li>
+				</ul>
+				<br><br>
+			</div>
+
+	    <div class="col-sm-8 col-sm-offset-2" ng-if="interaccion.tipoInteraccion == 1" >
+			<strong class="help-block">Alimento involucrado</strong>
+			<input type="text" ng-model="interaccion.alimentoInteraccion" class="form-control"  required  />
+	    <br>										
+		</div>
+
+
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<strong class="help-block">Repercución clinica</strong>
+			    <div class="btn-group">
+			        <label class="btn btn-default" ng-model="interaccion.categorizacionInteraccion" uib-btn-radio="1" uncheckable required >Menor</label>
+			        <label class="btn btn-default" ng-model="interaccion.categorizacionInteraccion" uib-btn-radio="2" uncheckable required >Moderada</label>
+			        <label class="btn btn-default" ng-model="interaccion.categorizacionInteraccion" uib-btn-radio="3" uncheckable required >Mayor</label>
+			    </div>
+			    								
+			</div>
+			<div class="col-sm-8 col-sm-offset-2"><br>
+				<strong>Descripción de efectos</strong>
+				<textarea rows="2" ng-model="interaccion.detallesInteraccion" class="form-control" required ></textarea>
+				<br>
+			</div>
+			<div class="col-sm-8 col-sm-offset-2">
+				<strong>Sugerencia</strong>
+				<textarea rows="2" ng-model="interaccion.sugerenciaInteraccion" class="form-control" required ></textarea><br>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer" ng-hide="MIA.$invalid">
+		<button class="btn btn-danger" ng-hide="true"  ng-click="cancel()"> Cancelar</button>
+		<button class="btn btn-default"  ng-click="ok()">Terminar</button>
+</div>

@@ -1,0 +1,257 @@
+<nav id="myNavmenu"  class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation">
+    <br>
+    <img class="center-block" style="width:150px;cursor:pointer" ng-click="nav.goHome()" src="assets/img/logo/nubaNeg.svg">
+    <div class="nav-divider"></div>
+    <img class="center-block" style="width:100px;cursor:pointer" ng-click="nav.goHome()" src="assets/img/icon/Icono_Perfil.svg">
+    <div class="text-center">
+      {{nav.usuario.nombre}}
+    </div>
+    <div class="nav-divider"></div>
+    <ul class="list-inline" ng-init="menu = 1" >
+		 <li ng-class="{'active':menu==1 }"  ng-click=" menu = 1;" >
+         	<img style="width:25px;cursor:pointer" src="assets/img/icon/Icono_Preescripción.svg">  Prescripción    
+         </li>
+
+    </ul>
+    <div class="nav-divider"></div>
+    <ul class="list-inline" style="padding-top:0%">
+        <li uib-dropdown id="ayudaDom"  >
+           <span  uib-dropdown-toggle  >
+              <img style="width:30px;cursor:pointer"  src="assets/img/icon/Icono_Ayuda.svg">  Ayuda 
+           </span>     
+              <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li><a href="http://nuba.cloudapp.net/_tip/Help-ATC-Index.php" target="_blank">Guía ATC</a></li>
+                <li><a href="#/politicas" target="_blank">Politica de privacidad</a></li>
+              </ul>
+        </li>
+        <li class=""  ng-click="nav.goHome()">
+           <img style="width:30px;cursor:pointer"  src="assets/img/icon/Icono_Alertas.svg"> Notificaciones
+        </li>
+        <li class=""  ng-click="nav.logOut()"  >
+           <img style="width:30px;cursor:pointer"src="assets/img/icon/Icono_Logout.svg">  Cerrar sesion
+        </li>          
+     </ul>
+</nav>
+
+
+
+<div class="container-fluid">
+	<div class="col-sm-12">
+		<div class="row data-tile">
+				<div class="col-sm-8">
+					<h4>{{ vm.patient.nombrePaciente }} {{ vm.patient.apellidoPaternoPaciente }} {{ vm.patient.apellidoMaternoPaciente}} </h4>
+				</div>
+				<div class="col-sm-4 text-right" >
+					<button ng-hide="true" class="btn btn-info"  ng-click="vm.egreso()"> Egreso de paciente</button><br><br>
+				</div>
+				<div class="col-sm-3" style=" border-right-style: solid;border-right-width: 1px;border-right-color: #0069a3;height: 150px;">
+					<h5>Información Personal</h5>
+						<strong>Ingreso </strong> - {{vm.patient.clinical.ingresoDatosClinicos |limitTo:11}}<br>
+						<strong>Identificador</strong> - {{ vm.patient.clinical.identificadorPacienteDatosClinicos }}<br>
+						<strong>Edad</strong> - {{ vm.patient.edad }} años <br>
+						<strong>Cama</strong> - {{ vm.patient.clinical.camaDatosClinicos }} <br>
+							<strong>Servicio</strong> - {{ vm.patient.clinical.nombreServicio }}
+
+				</div>
+				<div class="col-sm-3" style=" border-right-style: solid;border-right-width: 1px;border-right-color: #0069a3;height: 150px">
+					<h5>Información General</h5>
+					<strong>Medico</strong> - {{vm.patient.clinical.doctorDatosClinicos}}<br>
+					<strong>Peso</strong> - {{vm.patient.clinical.pesoDatosClinicos}} kg<br>
+					<strong>Estatura</strong> - {{vm.patient.clinical.tallaDatosClinicos}} cm<br>
+					<strong>IMC</strong> - {{vm.patient.clinical.imcDatosClinicos}}%<br>
+		    		<strong>ASC</strong> - {{vm.patient.clinical.ascDatosClinicos}}m2						
+				</div>
+				<div class="col-sm-3" style=" border-right-style: solid;border-right-width: 1px;border-right-color: #0069a3;height: 150px;overflow: auto;">
+					<h5>Datos Clinicos</h5>
+					<strong>Motivo de Hospitalización</strong> -
+		    			{{vm.patient.clinical.motivoDatosClinicos}} <br>
+					<strong>Diagnostico</strong> - 
+		    			{{vm.patient.clinical.diagnosticoDatosClinicos}}
+				</div>
+				<div class="col-sm-3" style=";height: 150px;overflow: auto">
+					<h5>Alergias</h5>
+					<ul class="list-unstyled" ng-if="vm.patient.alergy.length > 0">
+		    				<li class="" ng-repeat="alergia in vm.patient.alergy"> - {{alergia.nombreAlergia}}</li>
+		    			</ul>
+		    		<div ng-if="vm.patient.alergy.length == 0"><strong>No se reportaron alergias</strong></div>
+				</div>
+				<div class="col-sm-12 text-right" ng-hide="true"><br>
+					<button class="btn btn-primary " ng-click="vm.editCD(vm.patient)"  uib-tooltip="Editar datos clinicos" > <img style="width:15px;cursor:pointer" src="assets/img/icon/Icono_Edicion.svg"> Editar datos personales</button>	
+					<button class="btn btn-primary  " ng-click="vm.editCD(vm.patient)"  uib-tooltip="Editar datos clinicos" > <img style="width:15px;cursor:pointer" src="assets/img/icon/Icono_Edicion.svg"> Editar datos clinicos</button>	
+					
+				</div>				
+		</div>
+	</div>
+	<div class="col-sm-12"><br></div>
+	<div class="col-sm-12"><br>
+		<div class="row">	
+			<div class="data-tile">
+				<div class="row">
+
+					<div class="col-xs-6 ">
+						<form class="form-horizontal">
+						  <div class="form-group">
+						    <label  class="col-sm-6 control-label">Motivo de prescripción</label>
+						    <div class="col-sm-6">
+								<select class="form-control input-sm" ng-model="tipoPrescripcion" ng-options="tipoP.nombreTipoPrescripcion for tipoP in vm.opciones.TipoPrescripcion track by tipoP.idTipoPrescripcion" > 
+								</select>
+						    </div>
+						  </div>
+						 </form>
+
+						
+						<form>
+						    <div class="input-group">
+						      <input type="text" ng-model="med" ng-init="med = '' " uib-typeahead="medicamento as medicamento.nombrePrincipio for medicamento in vm.medicamentos | filter:$viewValue | limitTo:4 " class="form-control input-md"  placeholder="Ingrediente Activo" value="{{medicamento}}">
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" ng-click="vm.addMedicamento(med);med=''" type="submit" ng-disabled="med == '' ">Agregar</button>
+						      </span>
+						    </div><!-- /input-group -->
+						</form>
+						<br>
+						  	<div class="text-center" ng-show="vm.prescripcion.length == 0 ">
+								<h4>No hay medicamentos en esta prescripción</h4>
+							</div>
+						<div ng-if="!vm.render"  class="col-xs-12 text-center">
+							<h2>Validando medicamento</h2>
+							<i class="fa fa-spinner fa-pulse" style="font-size:50px"></i>
+						</div>
+						
+
+						<div ng-if="vm.render && vm.prescripcion.length > 0 " class="list-group" style="max-height: 260px;overflow:auto">
+						  <a href="" class="list-group-item text-center " style="background-color: #0069a3;color:#FFF;font-size: 18px;font-weight: bold" >Total de medicamentos: {{vm.prescripcion.length}}</a>
+						  <a href=""  ng-click="vm.setPreview(principio,$index)" class="list-group-item "  ng-repeat=" principio in vm.prescripcion.slice().reverse() track by $index">
+						   <img ng-class="principio.state" src="assets/img/icon/icono_semaforo.svg " alt="" style="width:21px"> &nbsp;&nbsp;{{$index+1}}.-  {{ principio.nombrePrincipio  }}
+						   <button type="button" class="close pull-right" aria-label="Close" ng-click="$event.stopPropagation();$event.preventDefault();vm.remove(principio);"><span aria-hidden="true" >&times;</span></button>
+						  	
+						  </a>
+
+
+
+
+
+						</div>
+					<div class="col-xs-12 "><br>
+						<div class="row">
+							<div class="col-xs-6 text-left">
+								<button class="btn btn-danger" ng-click="vm.cancel()">Cancelar captura</button>
+							</div>
+
+							<div class="col-xs-6 text-right">
+								<button class="btn btn-success " ng-disabled="flag" ng-click="vm.continuar();flag = true" >Finalizar captura</button>
+							</div>
+						</div>
+						
+					</div>
+
+					</div>	
+					<div class="col-sm-6" ng-if="vm.prescripcion.length > 0 ">
+						<form class="form-horizontal">
+						  	<div class="form-group">
+						    	<label  class="col-sm-6 control-label">Fecha de captura</label>
+							    <div class="col-sm-6">
+									<input type="date" ng-model="hoy" class="form-control input-sm " placeholder="Dia" />
+								</div>
+						    </div>
+						</form>
+	<br><br>
+							<h3 ng-show="!onPreview" class="text-center">Selecciona un medicamento de la lista para visualizar la posologia</h3>
+						<div ng-show="onPreview" class="row">
+							<div class="col-sm-12">
+								<h3>{{onPreview.indx+1}}.- {{onPreview.nombrePrincipio}}</h3>
+							</div>
+			  				<div class="col-xs-4 " >
+			  					<p class="help-block">Concentración</p>
+			  					<input class="form-control input-sm" ng-change="vm.checkRender2()" type="text" ng-model="onPreview.concentracionDatosFarma"  >
+			  				</div>
+			  				<div class="col-xs-4">
+			  					<p class="help-block">Unidad</p>
+								<select class="form-control input-sm" ng-change="vm.checkRender2()"  ng-model="onPreview.idUnidad"  >
+									<option value="{{unidad.idUnidad}}"  ng-repeat="unidad in vm.opciones.unidad track by unidad.idUnidad"> {{unidad.abreviaturaUnidad}} </option>
+								</select>
+			  				</div>
+							<div class="col-xs-4">
+								<p class="help-block">Presentación</p>
+								<select ng-model="onPreview.idPresentacion" ng-change="vm.checkRender2()"  class="form-control input-sm" >
+									<option value="{{presentacion.idPresentacion}}"  ng-repeat="presentacion in vm.opciones.presentacion track by presentacion.idPresentacion" ng-bind-html="presentacion.nombrePresentacion" >  </option>
+								</select>
+							</div>
+							<div class="col-xs-4">
+								<p class="help-block">Via</p>
+								<select ng-model="onPreview.idVia" 
+								ng-change="vm.checkRender2()" class="form-control input-sm" >
+								<option value="{{via.idVia}}"  ng-repeat="via in vm.opciones.via track by via.idVia" ng-bind-html="via.nombreVia" ></option></select>
+							</div>
+							<div class="col-xs-4">
+								<p class="help-block">Frecuencia</p>
+								<select ng-model="onPreview.idFrecuencia" ng-change="vm.checkRender2()" class="form-control input-sm" >
+								<option value="{{frecuencia.idFrecuencia}}"  ng-repeat=" frecuencia in vm.opciones.frecuencia track by frecuencia.idFrecuencia" ng-bind-html=" frecuencia.nombreFrecuencia" ></option></select>
+							</div>
+							<div class="col-xs-4">
+								<p class="help-block">Tipo de Medicamento</p>
+			  					<select ng-model="onPreview.idTipoMedicamento" ng-change="vm.checkRender2()" class="form-control input-sm" >
+			  						<option ng-repeat="tipoMedicamento in vm.opciones.TipoMedicamento" value="{{tipoMedicamento.idTipoMedicamento}}">{{tipoMedicamento.nombreTipoMedicamento}}</option>
+			  					</select>
+							</div>
+							<div class="col-xs-4">
+								<p class="help-block">Horario</p>
+					  			<input placeholder="horario" ng-change="vm.checkRender2()" ng-model="onPreview.inicioDatosFarma"  type="text" class="form-control input-sm" />
+							</div>
+							<div class="col-xs-8">
+								<p class="help-block">Notas u observaciones</p>
+					  			<textarea placeholder="sin observaciones" rows='4'  ng-model="onPreview.notaDatosFarma" class="form-control input-sm"  ></textarea>
+							</div>
+							<div class="col-xs-4">
+								<div class="row">
+							<div class="col-xs-6">
+								<p class="help-block">
+					  				Cronico
+			  					</p>
+			  					<button class="btn btn-sm" ng-model="onPreview.cronicoDatosFarma" ng-class="vm.buttonState(onPreview.cronicoDatosFarma)" ng-click="onPreview.cronicoDatosFarma = vm.buttonValue(onPreview.cronicoDatosFarma)" >
+			  						<span ng-show="onPreview.cronicoDatosFarma == 1">
+			  							Si
+			  						</span> 
+			  						<span ng-show="onPreview.cronicoDatosFarma == 0">
+			  							No
+			  						</span>
+			  					</button>
+							</div>
+							<div class="col-xs-6">
+								<p class="help-block">
+			  						Externo
+			  					</p>
+			  					<button class="btn btn-sm" n-change="vm.checkRender(onPreview)" ng-model="onPreview.prescritoDatosFarma" ng-class="vm.buttonState(onPreview.prescritoDatosFarma)" ng-click=" onPreview.prescritoDatosFarma = vm.buttonValue(onPreview.prescritoDatosFarma)">
+			  						<span ng-show="onPreview.prescritoDatosFarma == 1">
+			  							Si 
+			  						</span> 
+			  						<span ng-show="onPreview.prescritoDatosFarma == 0">
+			  							No
+			  						</span>
+			  					</button>
+							</div>										
+								</div>
+							</div>
+
+							<div class="col-sm-4" ng-hide="true">
+								<button class="btn btn-success " ng-click="vm.checkRender(principio)">Guardar</button>
+							</div>						
+						</div>
+					</div>
+
+					
+
+
+				
+				</div>			
+
+			</div>
+		</div>
+	</div>
+</div>
+
+		
+
+
+
+
+	

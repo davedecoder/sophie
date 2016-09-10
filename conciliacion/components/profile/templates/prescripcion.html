@@ -1,0 +1,367 @@
+	<div class="col-sm-5">
+		<h5 ng-class="labels.currentEvaluation.style" style="text-transform: uppercase;font-size:18pt">{{labels.currentEvaluation.label}}</h5>
+		<h5>Prescripción</h5>
+		
+	</div>
+	<div class="col-sm-7 text-right">
+		<button class="btn btn-info" ng-click="vm.nuevaConciliacion()"  ng-if="vm.patient.idEstatusPaciente != 2">Nueva Prescripción</button>
+		<button class="btn btn-info" ng-click="vm.reingreso()"  ng-if="vm.patient.idEstatusPaciente == 2">Re ingreso de paciente</button>
+		<button class="btn btn-info" ng-click="vm.traslado()" ng-if="vm.patient.idEstatusPaciente != 2">Traslado de Area</button>
+		<button class="btn btn-info" ng-click="vm.newRam()" ng-if="vm.patient.idEstatusPaciente != 2">Reportar RAM</button>
+	</div>
+	<div class="col-sm-12">
+		<div class="table-responsive">
+					<table class="table table-hover table-striped" ng-if="vm.patient.prescription.length > 0">
+						<thead>
+							<tr>
+								<th class="col-sm-" style="width:200px">Principio</th>
+								<th class="col-sm-" style="width:80px">Dosis</th>
+								<th class="col-sm-" style="width:80px">Tipo</th>
+								<th class="col-sm-" style="width:90px">F.F</th>
+								<th class="col-sm-" style="width:80px">Via</th>
+								<th class="col-sm-" style="width:90px">Frec.</th>
+								<th class="col-sm-" style="width:90px">Horario</th>
+								<th class="col-sm-">Nota</th>							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="principio in vm.patient.prescription[0]">
+								<td > <span ng-if="principio.nombrePrincipio">{{ principio.nombrePrincipio}} </span>
+								<span ng-if="!principio.nombrePrincipio">No indica</span>
+								</td>
+								<td class="text-center">
+									<span ng-if="principio.concentracionDatosFarma">{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}}</span>
+									<span ng-if="!principio.concentracionDatosFarma">No indica</span>
+									 </td>
+								<td   class="text-center">
+									<span ng-if="principio.idTipoMedicamento">{{principio.idTipoMedicamento}}</span>
+									<span ng-if="!principio.idTipoMedicamento">No indica</span>
+								</td>
+								<td  class="text-center" > 
+									<span ng-if="principio.nombrePresentacion" ng-bind-html='principio.nombrePresentacion'></span>
+									<span ng-if="!principio.nombrePresentacion">No indica</span>
+								</td>
+								<td  class="text-center">
+									<span ng-if="!principio.nombreVia"> No indica</span>
+									<span ng-if="principio.nombreVia" ng-bind-html="principio.nombreVia"> No indica</span>
+								</td>
+								<td  class="text-center">
+									<span  ng-if="principio.nombreFrecuencia" ng-bind-html="principio.nombreFrecuencia"></span>
+									<span ng-if="!principio.nombreFrecuencia" >No indica</span>
+
+								</td>
+								<td  class="text-center" >
+									<span ng-if="principio.inicioDatosFarma">{{principio.inicioDatosFarma}}</span>
+									<span ng-if="!principio.inicioDatosFarma">No inidica</span>
+									
+								</td>
+								<td class="text-center" >
+									<span ng-if="principio.notaDatosFarma" ng-bind-html=" principio.notaDatosFarma"></span>
+									<span ng-if="!principio.notaDatosFarma"> - </span>
+								</td>
+							</tr>
+						</tbody>
+					</table>			
+		</div>
+	</div>
+		<div class="col-sm-6 text-left ">
+			 <button  ng-if="vm.patient.idEstatusPaciente != 2" class="btn btn-primary" ng-click="vm.evaluar(vm.patient.prescription[0]);vm.evalIdoneidad=true; "><img style="width:20px;cursor:pointer" src="assets/img/icon/Icono_RX.svg"> Evaluar idoneidad </button>						
+		</div>
+		<div class="col-sm-6 text-right">
+			<button class="btn btn-primary" ng-click="vm.printReceta() "><img style="width:20px;cursor:pointer" src="assets/img/icon/Icono_Imprimir.svg">   Imprimir prescripción actual
+					</button>
+		</div>
+			<div class="col-sm-12" ng-show="vm.evalIdoneidad == true || labels.currentEvaluation.value != 0"><br>
+							
+							<table class="table table-hover table-striped" >
+								<thead>
+									<tr>
+										<th class="col-sm-" style="width:200px">Principio</th>
+										<th class="col-sm-" style="width:100px"> 
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[0]}}">	1	</div>
+										</th>
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[1]}}">	2	</div></th>
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[2]}}">	3	</div>
+										</th>
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[3]}}">	4	</div>
+										</th>
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[4]}}">	5	</div>
+										</th>
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[5]}}">	6	</div>
+										</th>	
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[6]}}">	7	</div>
+										</th>	
+										<th class="col-sm-" style="width:100px">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[7]}}">	8</div>
+										</th>						
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="principio in vm.estados track by $index">
+										<td >{{ principio.nombrePrincipio}}</td>
+										<td class="text-center">
+											<button ng-disabled="!vm.evalIdoneidad" ng-click="principio.i1 = vm.check(principio.i1.value)" class="btn btn-sm btn-default" ng-class="principio.i1.state"> 
+												<span ng-class=" principio.i1.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i2 = vm.check(principio.i2.value)" class="btn  btn-sm  btn-default" ng-class="principio.i2.state"> 
+														<span ng-class=" principio.i2.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button   ng-disabled="!vm.evalIdoneidad" ng-click="principio.i3 = vm.check(principio.i3.value)" class="btn btn-sm  btn-default" ng-class="principio.i3.state"> 
+														<span ng-class=" principio.i3.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i4 = vm.check(principio.i4.value)" class="btn btn-sm  btn-default" ng-class="principio.i4.state"> 
+												<span ng-class=" principio.i4.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i5 = vm.check(principio.i5.value)" class="btn btn-sm  btn-default" ng-class="principio.i5.state"> 
+												<span ng-class=" principio.i5.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button   ng-disabled="!vm.evalIdoneidad" ng-click="principio.i6 = vm.check(principio.i6.value)" class="btn btn-sm  btn-default" ng-class="principio.i6.state"> 
+												<span ng-class=" principio.i6.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button  ng-disabled="!vm.evalIdoneidad" ng-click="principio.i7 = vm.check(principio.i7.value)" class="btn  btn-sm btn-default" ng-class="principio.i7.state"> 
+												<span ng-class=" principio.i7.icon "></span>
+											</button>
+										</td>
+										<td class="text-center">
+											<button  ng-disabled="!vm.evalIdoneidad" ng-click="principio.i8 = vm.check(principio.i8.value)" class="btn  btn-sm btn-default" ng-class="principio.i8.state"> 
+												<span ng-class=" principio.i8.icon "></span>
+											</button>
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+							<div>
+							<div class="row" ng-show="vm.evalIdoneidad">
+								<div class="col-sm-6">
+									<textarea rows="2" class="form-control" placeholder="" ng-model="vm.notaIdoneidad"></textarea>
+								</div>
+								<div class="col-sm-6">
+									<button class="btn btn-primary" ng-click="vm.cancelIdoneidad()"> Cancelar</button>
+										<button class="btn btn-primary" ng-click="vm.evaluar(vm.patient.prescription[0])"> Reiniciar</button>
+										<button class="btn btn-primary" ng-click="vm.saveIdoneidad()"> Terminar</button>
+								</div>
+							</div>
+								
+
+							<div class="row" ng-show="!vm.evalIdoneidad  && labels.currentEvaluation.value != 0 ">
+								<div class="col-sm-12">
+								<pre ng-show="vm.patient.prescription[0][0].notaIdoneidad == '' " >No hay notas en esta valoracion de idoneidad</pre>
+									<pre ng-hide="vm.patient.prescription[0][0].notaIdoneidad == '' " >Notas de ultima evaluacion de idoneidad: {{vm.patient.prescription[0][0].notaIdoneidad}}</pre>
+								</div>
+							</div>
+
+																	
+							</div>	
+			</div>
+
+			<div class="data-tile" ng-if="false">
+				<div class="row">
+					
+						<div class="col-md-7">
+							<h4 class="text-right" ng-if="labels.noInterno">Paciente no hospitalizado</h4>
+						</div>			
+						<div class="col-md-5 text-right">
+							<button class="btn btn-md " ng-click="vm.reingreso()" ng-if="labels.noInterno"> <i class="fa fa-sign-in"></i> Reingresar paciente </button>
+						</div>
+						<div class="col-sm-12">
+						<hr ng-if="labels.noInterno">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel text-center" style="margin-bottom: 8px;" ng-class="labels.currentEvaluation.style">
+										<div class="panel-heading" style="padding:3px;" >
+											<h4 style="margin: 5px;">{{labels.currentEvaluation.label}}</h4>
+										</div>
+									</div>
+										
+								</div>							
+								
+								<div class="col-md-2 ">
+										<div class="btn-group" uib-dropdown is-open="status.isopen">
+									      <button  type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled"><i class="fa fa-align-justify">  </i>  Otras opciones
+									      </button>
+									      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+							        		<li role="menuitem" >
+									        	<a href="" ng-click="vm.nuevaConciliacion()">Nueva Prescripción</a>
+									        </li>
+									        <li  role="menuitem">
+									        	<a href="" ng-click="vm.traslado()">Traslado de área</a>
+									        </li>
+									        <li role="menuitem">
+									        	<a href="" ng-click="vm.newRam()">Reportar Reacción Adversa</a>
+									        </li>
+									        <li class="divider"></li>
+									        <li role="menuitem">
+									       		<a href="" ng-click="vm.egreso()">Egresar paciente</a>
+									       	</li>
+									      </ul>
+									</div>					
+								</div>					
+								<div class="col-md-3 pull-right text-right">
+									
+									<button class="btn btn-primary" ng-click="vm.printReceta() "><i class="fa fa-print"></i>   Imprimir prescripción actual
+									 </button>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-md-12">
+							<table class="table table-hover table-bordered" ng-if="vm.patient.prescription.length > 0">
+								<thead>
+									<tr>
+										<th class="col-sm-2">Principio</th>
+										<th class="col-sm-1">Dosis</th>
+										<th class="col-sm-1">Tipo</th>
+										<th class="col-sm-1">F.F</th>
+										<th class="col-sm-1">Via</th>
+										<th class="col-sm-1">Frec.</th>
+										<th class="col-sm-1">Horario</th>
+										<th class="col-sm-3">Nota</th>							
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="principio in vm.patient.prescription[0]">
+										<td >{{ principio.nombrePrincipio}}</td>
+										<td>{{ principio.concentracionDatosFarma }} {{ principio.abreviaturaUnidad}} </td>
+										<td >{{principio.idTipoMedicamento}}</td>
+										<td ng-bind-html='principio.nombrePresentacion' > 
+										</td>
+										<td ng-bind-html=" principio.nombreVia"></td>
+										<td ng-bind-html="principio.nombreFrecuencia"></td>
+										<td >{{principio.inicioDatosFarma}}</td>
+										<td ng-bind-html=" principio.notaDatosFarma" ></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-left ">
+									 <button class="btn btn-primary" ng-click="vm.evaluar(vm.patient.prescription[0]);vm.evalIdoneidad=true; "><i class="fa fa-list-alt"></i>  Evaluar idoneidad </button>						
+								</div>
+						</div>
+								
+				</div>
+
+					<div class="row text-center " ng-show="vm.evalIdoneidad == true || labels.currentEvaluation.value != 0">
+						<div class="col-sm-12">
+							
+							<table class="table table-hover table-bordered" >
+								<thead>
+									<tr>
+										<th class="col-sm-2">Principio</th>
+										<th class="col-sm-1"> 
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[0]}}">	1	</div>
+										</th>
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[1]}}">	2	</div></th>
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[2]}}">	3	</div>
+										</th>
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[3]}}">	4	</div>
+										</th>
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[4]}}">	5	</div>
+										</th>
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[5]}}">	6	</div>
+										</th>	
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[6]}}">	7	</div>
+										</th>	
+										<th class="col-sm-1">
+											<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[7]}}">	8</div>
+										</th>						
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="principio in vm.estados track by $index">
+										<td >{{ principio.nombrePrincipio}}</td>
+										<td>
+											<button ng-disabled="!vm.evalIdoneidad" ng-click="principio.i1 = vm.check(principio.i1.value)" class="btn btn-sm btn-default" ng-class="principio.i1.state"> 
+												<span ng-class=" principio.i1.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i2 = vm.check(principio.i2.value)" class="btn  btn-sm  btn-default" ng-class="principio.i2.state"> 
+														<span ng-class=" principio.i2.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button   ng-disabled="!vm.evalIdoneidad" ng-click="principio.i3 = vm.check(principio.i3.value)" class="btn btn-sm  btn-default" ng-class="principio.i3.state"> 
+														<span ng-class=" principio.i3.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i4 = vm.check(principio.i4.value)" class="btn btn-sm  btn-default" ng-class="principio.i4.state"> 
+												<span ng-class=" principio.i4.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button  ng-disabled="!vm.evalIdoneidad"  ng-click="principio.i5 = vm.check(principio.i5.value)" class="btn btn-sm  btn-default" ng-class="principio.i5.state"> 
+												<span ng-class=" principio.i5.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button   ng-disabled="!vm.evalIdoneidad" ng-click="principio.i6 = vm.check(principio.i6.value)" class="btn btn-sm  btn-default" ng-class="principio.i6.state"> 
+												<span ng-class=" principio.i6.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button  ng-disabled="!vm.evalIdoneidad" ng-click="principio.i7 = vm.check(principio.i7.value)" class="btn  btn-sm btn-default" ng-class="principio.i7.state"> 
+												<span ng-class=" principio.i7.icon "></span>
+											</button>
+										</td>
+										<td>
+											<button  ng-disabled="!vm.evalIdoneidad" ng-click="principio.i8 = vm.check(principio.i8.value)" class="btn  btn-sm btn-default" ng-class="principio.i8.state"> 
+												<span ng-class=" principio.i8.icon "></span>
+											</button>
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+							<div>
+							<div class="row" ng-show="vm.evalIdoneidad">
+								<div class="col-sm-6">
+									<textarea rows="2" class="form-control" placeholder="" ng-model="vm.notaIdoneidad"></textarea>
+								</div>
+								<div class="col-sm-6">
+									<button class="btn btn-primary" ng-click="vm.cancelIdoneidad()"> Cancelar</button>
+										<button class="btn btn-primary" ng-click="vm.evaluar(vm.patient.prescription[0])"> Reiniciar</button>
+										<button class="btn btn-primary" ng-click="vm.saveIdoneidad()"> Terminar</button>
+								</div>
+							</div>
+								
+
+							<div class="row" ng-show="!vm.evalIdoneidad  && labels.currentEvaluation.value != 0 ">
+								<div class="col-sm-12">
+								<pre ng-show="vm.patient.prescription[0][0].notaIdoneidad == '' " >No hay notas en esta valoracion de idoneidad</pre>
+									<pre ng-hide="vm.patient.prescription[0][0].notaIdoneidad == '' " >Notas de ultima evaluacion de idoneidad: {{vm.patient.prescription[0][0].notaIdoneidad}}</pre>
+								</div>
+							</div>
+
+																	
+							</div>	
+						</div>
+					</div>
+
+
+			</div>

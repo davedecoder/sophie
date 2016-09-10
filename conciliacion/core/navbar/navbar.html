@@ -1,0 +1,52 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="navbarController" >
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <img style="width:85px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/logo/nubaNeg.svg">
+      <!--
+      <a class="navbar-brand logotitle" ng-click="vm.goHome()" href="">nuba</a>
+      -->
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                  <a href="" style="font-size:20px;"  data-toggle="dropdown"><i class="fa fa-question-circle fa-lg"></i> <b class="caret"></b> </a>
+                  <ul class="dropdown-menu">                  	
+                    <li><a href="http://nuba.cloudapp.net/_tip/Help-ATC-Index.php" target="_blank">Guía ATC</a></li>
+                    <li><a href="http://www.drugs.com/drug_interactions.php" target="_blank">Interacciones</a></li>
+                    <li><a href="http://www.facmed.unam.mx/bmnd/dirijo.php?bib_vv=6" target="_blank">PLM</a></li>
+                    <li><a href="#/politicas" target="_blank">Politica de privacidad</a></li>
+                  </ul>
+                </li>
+                <!-- ALARMAS -->
+                <li>
+                  <a href="#/home" style="font-size: 20px;" > <i class="fa fa-exclamation-triangle fa-lg"><span ng-hide='true' class="badge badge-right">2</span></i> <span  class="navbar-new"> {{vmNav.alertas.all.length }}</span> </a>
+                </li>
+
+                <li class="dropdown">          
+                  <a href="" class="dropdown-toggle" style="font-size: 20px; padding-right: 0px;" data-toggle="dropdown"><span class="fa fa-user-md fa-lg"> </span> {{vm.usuario.nombre}} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                  	<li ng-click="vm.goRams()" style="cursor: pointer;"><a>RAMS</a></li>
+                  	<li><a href="http://mx.vidal-consult.com" target="_blank" >Vidal</a></li>
+                    <li><a href="" ng-click="vm.cerrarSesion()">Cerrar Sesion</a></li>                    
+                  </ul>
+                </li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div>
+  <form method="post" action="conciliacion/Rams.php" target="_blank" id="newSS">
+  	<input type="hidden" name="tipo" value="1" />
+  	<input type="hidden" name="k"/>
+  </form>
+</nav>
+
+

@@ -1,0 +1,60 @@
+<div class="modal-body">
+<div class="container-fluid">
+	<form role="form" name="clinical_data">
+		<div class="col-md-12">
+                 <div class="form-group">
+                    <p class="help-block">Identificador</p>
+                    <input type="text" ng-model="paciente.identificadorPacienteDatosClinicos" placeholder="id" class="form-control"  />
+                </div> 
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <p class="help-block">Talla</p>
+                        <input type="number" ng-model="paciente.tallaDatosClinicos" placeholder="Talla en cm" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <p class="help-block">Peso</p>
+                        <input type="number" ng-model="paciente.pesoDatosClinicos" placeholder="Peso en kg" class="form-control" />
+                    </div>
+                </div>                    
+
+                <div class="form-group">
+                    <div class="col-m-6">
+                        <p class="help-block">Cama / Cuarto</p>
+                        <input type="text" ng-model="paciente.camaDatosClinicos" placeholder="Cama/Cuarto" class="form-control"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="help-block">Doctor </p>
+                    <input type="text" ng-model="paciente.doctorDatosClinicos" placeholder="Doctor asignado" class="form-control"/>
+                    
+                </div>
+                <!--<div class="form-group">
+                    <p class="help-block">Servicio de ingreso</p>
+                    <select ng-options="servicio as servicio.nombreServicio for servicio in Servicios" ng-model="paciente.Servicio" placeholder="Servicio" class="form-control" required></select>
+                    
+                </div> -->
+                <div class="form-group">
+                    <p class="help-block">Motivos del ingreso del paciente</p>
+                    <textarea rows="2" type="text" ng-model="paciente.motivoDatosClinicos" placeholder="Motivo de ingreso" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <p class="help-block">Diagnostico del paciente</p>
+                    <textarea rows="2" type="text" ng-model="paciente.diagnosticoDatosClinicos" placeholder="Diagnostico" class="form-control"></textarea>
+                    
+                </div>
+                <div class="form-group">
+                    <p class="help-block">Notas</p>
+                    <textarea rows="2" type="text" ng-model="paciente.observacionDatosClinicos" placeholder="Notas y observaciones / enfermedades cronicas" class="form-control"></textarea>
+                    
+                </div>
+		</div>
+		</form>
+
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success pull-right " ng-click="ok()"> Guardar </button>
+	<button class="btn btn-danger pull-left" ng-click="cancel()" >Cancelar</button>
+</div>
+
+

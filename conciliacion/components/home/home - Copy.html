@@ -1,0 +1,26 @@
+
+<div ng-include="'conciliacion/core/navbar/navbar.html'" ng-controller="navbarController" ></div>
+<div class="container-fluid">
+	<uib-tabset >
+	    <uib-tab  >
+	    	<uib-tab-heading > Pacientes </uib-tab-heading>
+	    	<div ng-include="'conciliacion/components/home/template/altas.html'">
+	    	</div>
+	    </uib-tab>
+
+
+	    <uib-tab heading="Notificaciones" ng-click="vm.getAlerts()" class="">
+  			<div ng-include="'conciliacion/components/home/template/notificaciones.html'"></div>
+	    </uib-tab>
+
+	    <uib-tab heading="Interacciones" ng-click="vm.getAlerts()" class="">
+  			<div ng-include="'conciliacion/components/home/template/interacciones.html'"></div>
+	    </uib-tab>
+
+
+	    <uib-tab heading="Estadisticas" class="">
+	    	<div ng-include="'conciliacion/components/home/template/charts.html '">
+	    	</div>
+	    </uib-tab>
+    </uib-tabset>
+</div>

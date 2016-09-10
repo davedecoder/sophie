@@ -1,0 +1,280 @@
+<div class="data-tile">
+	<div class="row" >
+		<div class="col-md-6 col-sm-6 text-left " >
+			
+		</div>
+		<div class="col-md-6 col-sm-6 text-right " >
+
+			<button class="btn btn-md"  ng-click="vm.printHistorial()" > <i class="fa fa-print"></i> Imprimir historial</button>
+		</div>
+<!--
+		<div class="col-md-3  col-sm-12 hr-right" >
+			<div class="col-md-12 col-sm-4 " ng-repeat="dato in vm.patient.history track by $index " >
+				<div class="tiny-history data-tile "  ng-click="vm.setOpen(dato)">
+					Prescripcion # {{dato['0'].medicamentos.numeroRecetaDatosFarma}} <br>
+					{{dato[0].capturaDatosFarma}}							
+				</div>
+			</div>
+		</div>
+-->
+				<div class="col-sm-12">
+					<div class="big-history data-tile" ng-repeat="element in vm.patient.history track by $index">
+						<div class="row" ng-show="element.medicamentos">
+							<div class="col-sm-12">
+								Receta: {{ element.medicamentos['0'].numeroRecetaDatosFarma }} de  {{ vm.patient.history.length }} por {{ element.medicamentos['0'].idTipoPrescripcion }} 
+								<table class="table table-bordered" >
+									<thead>
+										<tr>
+											<th class="col-sm-2">Principio</th>
+											<th class="col-sm-1">Dosis</th>
+											<th class="col-sm-1">Tipo</th>
+											<th class="col-sm-1">F.F</th>
+											<th class="col-sm-1">Via</th>
+											<th class="col-sm-1">Frec.</th>
+											<th class="col-sm-1">Horario</th>
+											<th class="col-sm-3">Nota</th>							
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="principio in element.medicamentos">
+											<td >{{ principio.nombrePrincipio}}</td>
+											<td>{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}} </td>
+											<td >{{principio.idTipoMedicamento}}</td>
+											<td ng-bind-html='principio.nombrePresentacion' > 
+											</td>
+											<td ng-bind-html=" principio.nombreVia"></td>
+											<td ng-bind-html="principio.nombreFrecuencia"></td>
+											<td >{{principio.inicioDatosFarma}}</td>
+											<td ng-bind-html=" principio.notaDatosFarma" ></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-sm-12" ng-if="!element.idoneidades.length == 0 " ng-repeat="idoneidad in element.idoneidades ">
+								<div class="col-sm-6">
+									<strong>Quimico que evaluo:</strong> {{idoneidad[0].nombreQuimico}} {{idoneidad[0].apellidoQuimico}} 
+								</div>
+								<div class="col-sm-6">
+									<strong>Fecha de evaluación:</strong> {{idoneidad[0].fechaIdoneidad}}
+								</div>
+								<div class=""  >
+									<table class="table table-history table-bordered " >
+											<thead>
+												<tr >
+													<th class="col-sm-2 ">Principio</th>
+													<th class="col-sm-1 ">Fecha eval.</th>
+													<th class="col-sm-1 "> 
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[0]}}">	1	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[1]}}">	2	</div></th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[2]}}">	3	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[3]}}">	4	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[4]}}">	5	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[5]}}">	6	</div>
+													</th>	
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[6]}}">	7	</div>
+													</th>	
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[7]}}">	8</div>
+
+													</th>							
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="" ng-repeat="medicamento in idoneidad ">
+												    <td >{{medicamento.nombrePrincipio }}</td>	
+												    <td>{{medicamento.fechaIdoneidad }}</td>
+													<td> {{medicamento.I1DatosFarma }}
+													</td>
+													<td> {{medicamento.I2DatosFarma }}
+													</td>
+													<td> {{medicamento.I3DatosFarma }}
+													</td>
+													<td> {{medicamento.I4DatosFarma }}
+													</td>
+													<td> {{medicamento.I5DatosFarma }}
+													</td>
+													<td> {{medicamento.I6DatosFarma }}
+													</td>
+													<td> {{medicamento.I7DatosFarma }}
+													</td>
+													<td> {{medicamento.I8DatosFarma }}
+													</td>	
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="col-sm-2 text-left" >
+									<div >
+										Observaciones:<br> {{ idoneidad[0].notaIdoneidad}}
+									</div>
+								</div>
+								<div class="col-sm-12"> <hr> </div>
+							</div>
+							<div class="col-sm-12" ng-if="element.idoneidades.length == 0 ">
+									<h3>No se realizo evaluacion de idoneidad</h3>
+							</div>
+							<div class="col-sm-12" ng-if="element.interacciones.length != 0 ">
+								<table class="table table-bordered" >
+									<thead>
+										<tr>
+											<th class="col-sm-2">Principio</th>
+											<th class="col-sm-1">Dosis</th>
+											<th class="col-sm-1">Tipo</th>
+											<th class="col-sm-1">F.F</th>
+											<th class="col-sm-1">Via</th>
+											<th class="col-sm-1">Frec.</th>
+											<th class="col-sm-1">Horario</th>
+											<th class="col-sm-3">Nota</th>							
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="principio in element.medicamentos">
+											<td >{{ principio.nombrePrincipio}}</td>
+											<td>{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}} </td>
+											<td >{{principio.idTipoMedicamento}}</td>
+											<td ng-bind-html='principio.nombrePresentacion' > 
+											</td>
+											<td ng-bind-html=" principio.nombreVia"></td>
+											<td ng-bind-html="principio.nombreFrecuencia"></td>
+											<td >{{principio.inicioDatosFarma}}</td>
+											<td ng-bind-html=" principio.notaDatosFarma" ></td>
+										</tr>
+									</tbody>
+								</table>									
+							</div>
+							<div class="col-sm-12" ng-if="element.interacciones.length == 0 ">
+									<h3>No se realizo evaluacion de idoneidad</h3>
+							</div>							
+						</div>
+						<div ng-if="element.medicamentos.length == 0" class="text-center">
+							<h3>No se capturaron medicamentos en esta prescripción	</h3>	
+						</div>						
+					</div>
+				</div>
+
+
+
+<!--
+		<div class="col-md-9 col-sm-12" ng-show="vm.history['0'] != undefined">
+			<div class="col-md-12"><br>
+					<p><strong>Prescripcion # {{ vm.history['0'].numeroRecetaDatosFarma}}</strong></p>
+					<p> Fecha de prescripción - {{ vm.history['0'].capturaDatosFarma |limitTo:10 }}</p>
+				<table class="table table-hover table-bordered" ng-if="vm.patient.prescription.length > 0">
+					<thead>
+						<tr>
+							<th class="col-sm-2">Principio</th>
+							<th class="col-sm-1">Concentración</th>
+							<th class="col-sm-2">Presentacion</th>
+							<th class="col-sm-1">Via</th>
+							<th class="col-sm-1">Frecuencia</th>
+							<th class="col-sm-3">Nota</th>							
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="principio in vm.history">
+							<td >{{ principio.nombrePrincipio}}</td>
+							<td>{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}} </td>
+							<td ng-bind-html='principio.nombrePresentacion' > 
+							</td>
+							<td ng-bind-html=" principio.nombreVia"></td>
+							<td ng-bind-html="principio.nombreFrecuencia"></td>
+							<td ng-bind-html=" principio.notaDatosFarma" ></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12" ng-show="vm.history.idoneidades.length > 0 ">
+			<h3>Historico de evaluaciones de idoneidad</h3>
+				
+			</div>
+			<div class="col-sm-12" ng-show="vm.history.idoneidades.length > 0 ">
+				<div class="row" ng-repeat="idoneidad in vm.history.idoneidades ">
+					<div class="col-sm-12">
+						<p><strong>Quimico que evaluo:</strong> {{idoneidad[0].nombreQuimico}} {{idoneidad[0].apellidoQuimico}} </p>
+						<p><strong>Fecha de evaluación:</strong> {{idoneidad[0].fechaIdoneidad}}</p>
+					</div>
+					<div class="col-sm-10"  >
+						<div ng-show="vm.history.idoneidades.length > 0 ">
+							<table class="table table-history table-bordered " >
+									<thead>
+										<tr >
+											<th class="col-sm-2 ">Principio</th>
+											<th class="col-sm-1 "> 
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[0]}}">	1	</div>
+											</th>
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[1]}}">	2	</div></th>
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[2]}}">	3	</div>
+											</th>
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[3]}}">	4	</div>
+											</th>
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[4]}}">	5	</div>
+											</th>
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[5]}}">	6	</div>
+											</th>	
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[6]}}">	7	</div>
+											</th>	
+											<th class="col-sm-1">
+												<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[7]}}">	8</div>
+
+											</th>							
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="" ng-repeat="medicamento in idoneidad ">
+													<td >{{medicamento.nombrePrincipio }}</td>	
+													<td> {{medicamento.I1DatosFarma }}
+													</td>
+													<td> {{medicamento.I2DatosFarma }}
+													</td>
+													<td> {{medicamento.I3DatosFarma }}
+													</td>
+													<td> {{medicamento.I4DatosFarma }}
+													</td>
+													<td> {{medicamento.I5DatosFarma }}
+													</td>
+													<td> {{medicamento.I6DatosFarma }}
+													</td>
+													<td> {{medicamento.I7DatosFarma }}
+													</td>
+													<td> {{medicamento.I8DatosFarma }}
+													</td>	
+										</tr>
+
+									</tbody>
+							</table>
+
+						</div>
+					</div>
+					<div class="col-sm-2 text-left" >
+						<div >
+							Observaciones:<br> {{ idoneidad[0].notaIdoneidad}}
+						</div>
+					</div>
+					<div class="col-sm-12" ng-show="vm.history.idoneidades.length == 0 ">
+							<h3>No se realizo evaluacion de idoneidad</h3>
+					</div>
+					<div class="col-sm-12"> <hr> </div>
+				</div>
+			</div>
+		</div>
+
+
+		-->
+	</div>
+</div>

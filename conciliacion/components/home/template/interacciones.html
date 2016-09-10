@@ -1,0 +1,42 @@
+<div class="data-tile">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+		<br>
+			<div class="col-xs-12 col-md-12">
+				<input type="text" placeholder="Filtro" ng-model="filt_int" class="form-control"  />
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<br>
+			<div class="col-xs-12">
+				<table class="table  table-hover table-bordered" >
+					<thead>
+						<tr>
+							<th class="" >No.</th>
+							<th class="col-xs-2" > Paciente </th>
+							<th class="col-xs-2" > Fecha </th>
+							<th class="col-xs-1" > Tipo </th>
+							
+							<th class="col-xs-1" > Categoria </th>
+							<th class="col-xs-3" > Descripción </th>
+							<th class="col-xs-3" > Sugerencia </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="cursor:pointer" ng-click="vm.toProfile(interaccion.idPaciente)" ng-repeat="interaccion in vm.alertas.interacciones | filter:filt_int | orderBy:'-fechaCapturaInteraccion'">
+							<td> {{$index+1}} </td>
+							<td> {{ interaccion.Paciente }} </td>
+							<td class="text-center"> {{ interaccion.fechaCapturaInteraccion }} </td>
+							<td class="text-center"> {{ interaccion.nombreInteraccion }} </td>
+							
+							<td class="text-center"> {{ interaccion.nombreCategoria }} </td>
+							<td> {{ interaccion.detallesInteraccion }}  </td>
+							<td> {{ interaccion.sugerenciaInteraccion }} </td>
+						</tr>
+					</tbody>
+				</table>				
+			</div>
+
+		</div>
+	</div>
+</div>

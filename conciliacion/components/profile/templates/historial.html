@@ -1,0 +1,259 @@
+<div class="row" ng-show="vm.patient.history.length == 0"><br>
+		<h1 class="text-center"> No hay historiales registrados a este usuario</h1>
+	<br><br></div>
+
+<div class="row" ng-show="vm.patient.history.length>0">
+	<div class="col-sm-12">
+		<div class="row" >
+			<div class="col-md-6 col-sm-6 text-left " >
+			</div>
+			<div class="col-md-6 col-sm-6 text-right " >
+				<button class="btn btn-primary"  ng-click="vm.reportTest(vm.patient.history)" > <img style="width:20px;cursor:pointer" src="assets/img/icon/Icono_Imprimir.svg"> Imprimir historial</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="row">
+		<div class="" ng-repeat="element in vm.patient.history track by $index">		
+			<div class="col-sm-12 "   >
+				<hr >
+				<h5>
+				Receta: {{ element.medicamentos['0'].numeroRecetaDatosFarma }} de  {{ vm.patient.history.length }} por {{ element.medicamentos['0'].idTipoPrescripcion }} capturada el {{ element.medicamentos['0'].capturaDatosFarma|limitTo:10 }}
+				</h5>
+					<table class="table table-hover" >
+						<thead>
+							<tr>
+								<th class="col-sm-" style="width:200px">Principio</th>
+								<th class="col-sm-" style="width:80px">Dosis</th>
+								<th class="col-sm-" style="width:80px">Tipo</th>
+								<th class="col-sm-" style="width:90px">F.F</th>
+								<th class="col-sm-" style="width:80px">Via</th>
+								<th class="col-sm-" style="width:90px">Frec.</th>
+								<th class="col-sm-" style="width:90px">Horario</th>
+								<th class="col-sm-">Nota</th>							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="principio in element.medicamentos">
+								<td > <span ng-if="principio.nombrePrincipio">{{ principio.nombrePrincipio}} </span>
+								<span ng-if="!principio.nombrePrincipio">No indica</span>
+								</td>
+								<td class="text-center">
+									<span ng-if="principio.concentracionDatosFarma">{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}}</span>
+									<span ng-if="!principio.concentracionDatosFarma">No indica</span>
+									 </td>
+								<td   class="text-center">
+									<span ng-if="principio.idTipoMedicamento">{{principio.idTipoMedicamento}}</span>
+									<span ng-if="!principio.idTipoMedicamento">No indica</span>
+								</td>
+								<td  class="text-center" > 
+									<span ng-if="principio.nombrePresentacion" ng-bind-html='principio.nombrePresentacion'></span>
+									<span ng-if="!principio.nombrePresentacion">No indica</span>
+								</td>
+								<td  class="text-center">
+									<span ng-if="!principio.nombreVia"> No indica</span>
+									<span ng-if="principio.nombreVia" ng-bind-html="principio.nombreVia"> No indica</span>
+								</td>
+								<td  class="text-center">
+									<span  ng-if="principio.nombreFrecuencia" ng-bind-html="principio.nombreFrecuencia"></span>
+									<span ng-if="!principio.nombreFrecuencia" >No indica</span>
+
+								</td>
+								<td  class="text-center" >
+									<span ng-if="principio.inicioDatosFarma">{{principio.inicioDatosFarma}}</span>
+									<span ng-if="!principio.inicioDatosFarma">No inidica</span>
+									
+								</td>
+								<td class="text-center" >
+									<span ng-if="principio.notaDatosFarma" ng-bind-html=" principio.notaDatosFarma"></span>
+									<span ng-if="!principio.notaDatosFarma"> - </span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+			</div>
+			<div class="col-sm-10 col-sm-offset-2"  >
+				<div ng-repeat="evaluacion in element.idoneidades track by $index">
+					<br>
+					<h5>Usuario: {{evaluacion[0].usuario}} el {{evaluacion[0].fecha}} </h5>
+					<table  class="table table-hover">
+						<thead>
+							<tr>
+								<th class="col-sm-1">No. Evento</th>
+								<th class="col-sm-4">Medicamento</th>
+								<th class="col-sm-3">Resultado de idoneidad</th>
+								<th class="col-sm-4">Evento adverso</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="idoneidad in evaluacion track by $index" >
+								<td>{{idoneidad.idError}}</td>
+								<td>{{idoneidad.principio}}</td>
+								<td>{{idoneidad.resultado}}</td>
+								<td>{{idoneidad.evento}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+					<div class="col-sm-12" ng-if="element.idoneidades.length == 0 ">
+							<h3>No se realizo evaluacion de idoneidad</h3>
+					</div>				
+			</div>
+		</div>
+
+		</div>
+	</div>
+
+
+
+</div>
+<!--
+		<div class="row">
+
+				<div class="col-sm-12">
+					<div class="big-history data-tile" ng-repeat="element in vm.patient.history track by $index">
+						<div class="row" ng-show="element.medicamentos">
+							<div class="col-sm-12">
+								Receta: {{ element.medicamentos['0'].numeroRecetaDatosFarma }} de  {{ vm.patient.history.length }} por {{ element.medicamentos['0'].idTipoPrescripcion }} 
+								<table class="table table-bordered" >
+									<thead>
+										<tr>
+											<th class="col-sm-2">Principio</th>
+											<th class="col-sm-1">Dosis</th>
+											<th class="col-sm-1">Tipo</th>
+											<th class="col-sm-1">F.F</th>
+											<th class="col-sm-1">Via</th>
+											<th class="col-sm-1">Frec.</th>
+											<th class="col-sm-1">Horario</th>
+											<th class="col-sm-3">Nota</th>							
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="principio in element.medicamentos">
+											<td >{{ principio.nombrePrincipio}}</td>
+											<td>{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}} </td>
+											<td >{{principio.idTipoMedicamento}}</td>
+											<td ng-bind-html='principio.nombrePresentacion' > 
+											</td>
+											<td ng-bind-html=" principio.nombreVia"></td>
+											<td ng-bind-html="principio.nombreFrecuencia"></td>
+											<td >{{principio.inicioDatosFarma}}</td>
+											<td ng-bind-html=" principio.notaDatosFarma" ></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-sm-12" ng-if="!element.idoneidades.length == 0 " ng-repeat="idoneidad in element.idoneidades ">
+								<div class="col-sm-6">
+									<strong>Quimico que evaluo:</strong> {{idoneidad[0].nombreQuimico}} {{idoneidad[0].apellidoQuimico}} 
+								</div>
+								<div class="col-sm-6">
+									<strong>Fecha de evaluación:</strong> {{idoneidad[0].fechaIdoneidad}}
+								</div>
+								<div class=""  >
+									<table class="table table-history table-bordered " >
+											<thead>
+												<tr >
+													<th class="col-sm-2 ">Principio</th>
+													<th class="col-sm-1 ">Fecha eval.</th>
+													<th class="col-sm-1 "> 
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[0]}}">	1	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[1]}}">	2	</div></th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[2]}}">	3	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[3]}}">	4	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[4]}}">	5	</div>
+													</th>
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[5]}}">	6	</div>
+													</th>	
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[6]}}">	7	</div>
+													</th>	
+													<th class="col-sm-1">
+														<div tooltip-trigger="mouseenter" style="cursor:pointer" uib-tooltip="{{optionLabels[7]}}">	8</div>
+
+													</th>							
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="" ng-repeat="medicamento in idoneidad ">
+												    <td >{{medicamento.nombrePrincipio }}</td>	
+												    <td>{{medicamento.fechaIdoneidad }}</td>
+													<td> {{medicamento.I1DatosFarma }}
+													</td>
+													<td> {{medicamento.I2DatosFarma }}
+													</td>
+													<td> {{medicamento.I3DatosFarma }}
+													</td>
+													<td> {{medicamento.I4DatosFarma }}
+													</td>
+													<td> {{medicamento.I5DatosFarma }}
+													</td>
+													<td> {{medicamento.I6DatosFarma }}
+													</td>
+													<td> {{medicamento.I7DatosFarma }}
+													</td>
+													<td> {{medicamento.I8DatosFarma }}
+													</td>	
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<div class="col-sm-2 text-left" >
+									<div >
+										Observaciones:<br> {{ idoneidad[0].notaIdoneidad}}
+									</div>
+								</div>
+								<div class="col-sm-12"> <hr> </div>
+							</div>
+							<div class="col-sm-12" ng-if="element.idoneidades.length == 0 ">
+									<h3>No se realizo evaluacion de idoneidad</h3>
+							</div>
+							<div class="col-sm-12" ng-if="element.interacciones.length != 0 ">
+								<table class="table table-bordered" >
+									<thead>
+										<tr>
+											<th class="col-sm-2">Principio</th>
+											<th class="col-sm-1">Dosis</th>
+											<th class="col-sm-1">Tipo</th>
+											<th class="col-sm-1">F.F</th>
+											<th class="col-sm-1">Via</th>
+											<th class="col-sm-1">Frec.</th>
+											<th class="col-sm-1">Horario</th>
+											<th class="col-sm-3">Nota</th>							
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="principio in element.medicamentos">
+											<td >{{ principio.nombrePrincipio}}</td>
+											<td>{{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}} </td>
+											<td >{{principio.idTipoMedicamento}}</td>
+											<td ng-bind-html='principio.nombrePresentacion' > 
+											</td>
+											<td ng-bind-html=" principio.nombreVia"></td>
+											<td ng-bind-html="principio.nombreFrecuencia"></td>
+											<td >{{principio.inicioDatosFarma}}</td>
+											<td ng-bind-html=" principio.notaDatosFarma" ></td>
+										</tr>
+									</tbody>
+								</table>									
+							</div>
+							<div class="col-sm-12" ng-if="element.interacciones.length == 0 ">
+									<h3>No se reporto ninguna interacción</h3>
+							</div>							
+						</div>
+						<div ng-if="element.medicamentos.length == 0" class="text-center">
+							<h3>No se capturaron medicamentos en esta prescripción	</h3>	
+						</div>						
+					</div>
+				</div>
+		</div>
+-->

@@ -1,0 +1,115 @@
+<div ng-include="'conciliacion/core/navbar/navbar.html'" ng-controller="navbarController" ></div>
+<div class="container">
+    <div class="data-tile">
+    	<form class="form" name="personal_data">
+    		
+                <div class="row " >
+                	<div class="col-sm-12">
+                		<p>Datos Personales</p>
+                	</div>
+    	            <div class="col-md-4 col-sm-4 col-xs-4 ">
+    	                <div class="form-group">
+    	                    <p class="help-block">Nombre del Paciente*</p>
+    	                    <input type="text" ng-model="personal_data.nombrePaciente" placeholder="Nombre de Paciente" ng-disabled="datosClinicos" class="form-control input-sm" required>
+    	                </div>            	
+    	            </div>	           
+                    <div class="col-md-4 col-sm-4 col-xs-4 ">
+                      <div class="form-group">
+                          <p class="help-block">Fecha de nacimiento*</p>
+                          <input type="date" ng-model="personal_data.nacimientoPaciente" placeholder="Fecha de nacimiento" ng-disabled="datosClinicos" class="form-control input-sm" required>
+                      </div>                  
+                    </div>   
+                    <div class="col-md-4 col-sm-4 col-xs-4  "> 
+                      <div class="form-group">    
+                          <p class="help-block"> Genero* </p>
+                          &nbsp;
+                          &nbsp;
+                          <input type="radio" value="F" ng-disabled="datosClinicos" ng-model="personal_data.sexoPaciente"> F
+                          &nbsp;
+                          <input type="radio" value="M" ng-disabled="datosClinicos" ng-model="personal_data.sexoPaciente" > M
+                      </div>  
+                    </div> 
+                    <div class="col-md-4 col-sm-4 col-xs-4 ">  
+                        <button class="btn btn-success btn-block" ng-hide="personal_data.$invalid && personal_data.sexoPaciente==undefined || datosClinicos" ng-disabled="datosClinicos" ng-click="vm.postUser(personal_data)" >Continuar </button>
+                    </div>
+                </div>
+    	</form>
+    	<form name="paciente" ng-show="datosClinicos">
+                <div class="row">
+                	<div class="col-sm-12">
+                		<hr>
+                		<p>Datos Clinicos obligatoros</p>
+                	</div>
+                    <div class="col-xs-4 ">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p class="help-block">Identificador*</p>
+                                <input type="text" ng-model="paciente.identificadorDatosClinicos" ng-disabled="!datosClinicos" placeholder="id" class="form-control input-sm"  required/>
+                            </div> 
+                            <div class="col-xs-12">
+                                <p class="help-block">Cama / Cuarto*</p>
+                                <input type="text" ng-model="paciente.camaDatosClinicos" ng-disabled="!datosClinicos" placeholder="Cama/Cuarto" class="form-control input-sm"  required/> 
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p class="help-block">Fecha de hospitalización</p>
+                                <input type="date" ng-model="paciente.ingresoDatosClinicos" ng-disabled="!datosClinicos" placeholder="" class="form-control input-sm" />
+                            </div>  
+                            <div class="col-xs-12">
+                                <p class="help-block">Área de atención*</p>
+                                <select ng-options="servicio as servicio.nombreServicio for servicio in vm.services" ng-disabled="!datosClinicos" ng-model="paciente.Servicio" placeholder="Servicio" class="form-control input-sm" required></select>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p class="help-block">Talla</p>
+                                <input type="number" ng-model="paciente.tallaDatosClinicos" ng-disabled="!datosClinicos" placeholder="Talla en cm" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-12">
+                                <p class="help-block">Peso</p>
+                                <input type="number" ng-model="paciente.pesoDatosClinicos" ng-disabled="!datosClinicos" placeholder="Peso en kg" class="form-control input-sm" />
+                            </div> 
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p class="help-block">Médico </p>
+                                <input type="text" ng-model="paciente.doctorDatosClinicos" ng-disabled="!datosClinicos" placeholder="Médico asignado" class="form-control" />
+                            </div>  
+                        </div>
+                    </div>
+
+                	<div class=" col-xs-4">
+                        <p class="help-block">Motivos del ingreso*</p>
+                        <textarea rows="1" type="text" ng-model="paciente.motivoDatosClinicos" ng-disabled="!datosClinicos" placeholder="Motivo de ingreso" class="form-control" required></textarea>
+                	</div> 
+
+
+                </div>
+                <div class="row">
+               	
+                	           	
+                	<div class="col-sm-6 col-md-6">
+                        <p class="help-block">Diagnostico del paciente</p>
+                        <textarea rows="2" type="text" ng-model="paciente.diagnosticoDatosClinicos" ng-disabled="!datosClinicos" placeholder="Diagnostico" class="form-control"></textarea>
+                	</div>  
+                	<div class="col-sm-6 col-md-6">
+                        <p class="help-block">Notas</p>
+                        <textarea rows="2" type="text" ng-model="paciente.observacionDatosClinicos" ng-disabled="!datosClinicos" placeholder="Notas y observaciones / enfermedades cronicas" class="form-control"></textarea>
+                	</div> 
+    				<div class="col-md-4 col-sm-4 col-xs-4 pull-right">  
+    			    	<br>
+    			        <button class="btn btn-success btn-block" ng-hide="paciente.$invalid && !datosClinicos" ng-disabled="paciente.$invalid"  ng-click="vm.postCD(paciente)" >Continuar </button>
+
+    			    </div>
+                </div>	                    
+        </form>
+    </div>
+</div>

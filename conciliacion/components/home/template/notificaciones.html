@@ -1,0 +1,51 @@
+	    	<div class="data-tile">
+	    		<div class="row">
+		    		<div class="col-xs-12 col-md-12">
+		    		<br>
+		    		<div class="col-xs-7">
+		    				<input type="text" ng-model="filt_alert" class="form-control input-" id="filterPatients" placeholder="Filtro">
+		    			</div>
+		    			<div class="col-xs-5">
+							<div class="btn-group btn-group-justified" role="group" aria-label="Acciones">
+							  <a  role="button" ng-click="filt_tipo = '' " class="btn btn-default " >Todas</a>
+							  <a  role="button" class="btn btn-default " ng-click="filt_tipo.idTipoAlerta = 1 "> Conciliación</a>
+							  <a role="button" ng-click="filt_tipo.idTipoAlerta = 2 " class="btn btn-default "> Idoneidad</a>
+							</div>	    			
+		    			</div>
+
+		    		</div>
+
+		    		<div class="col-sm-12">
+				    	<div class="col-xs-12">
+				    	    <br>
+							<table class="table  table-hover table-bordered" >
+								<thead>
+									<tr>
+										<th class="" >No.</th>
+										<th class="" >Paciente</th>
+										<th class="" >Fecha</th>
+										<th class="" >Tipo</th>
+										<th class="" >Descripción </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-click="vm.toProfile(alerta.idPaciente)" ng-repeat="alerta in vm.alertas.all | filter:filt_alert | filter:filt_tipo |orderBy:'-fechaAlerta' " style="cursor:pointer">
+										<td class="text-center"> {{$index+1}} </td>
+										<td class="text-center"> {{ alerta.Paciente }}</td>
+										<td class="">{{ alerta.fechaAlerta}}</td>
+										<td class="text-center">
+											<span ng-if="alerta.idTipoAlerta == 1"> Conciliación </span>
+											<span ng-if="alerta.idTipoAlerta == 2"> Idoneidad </span>
+											<span ng-if="alerta.idTipoAlerta == 3"> Interaccion </span>	
+										</td>
+										<td >{{alerta.descripcionAlerta}}</td>
+									</tr>				
+								</tbody>
+							</table>						
+				    	</div>
+		    		</div>
+
+
+
+			    </div>
+	    	</div>  

@@ -1,0 +1,76 @@
+<div class="data-tile">
+	<div class="row" >
+		<div class="col-sm-3 text-center">
+			<div class="col-sm-12">
+				<div class="well  "  ng-class="opcion.styleColor" ng-repeat="opcion in opcionesGraficas" ng-click="vm.grafica(opcion)">
+					{{opcion.titulo}}
+				</div>
+			</div>
+
+		</div>
+		<div class="col-sm-9" ng-show="!estadisticas.render" >
+				
+		</div>
+
+
+
+
+		<div class="col-sm-9" ng-show="estadisticas.render">
+			<div class="col-sm-12" >
+				<div class="col-sm-6">
+					<p class="input-group">
+						<span  class="input-group-addon">
+							Inicio
+						</span>
+						<input type="text" class="form-control input-md" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="fecha.inicio" ng-init="open1 = false" is-open="open1"  max-date="hoy" datepicker-options="fecha.options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+						<span class="input-group-btn">
+	                		<button type="button" class="btn btn-default" ng-click="open1 = !open1"><i class="fa fa-calendar"></i></button>
+	              		</span>
+              		</p>
+				</div>
+				<div class="col-sm-6">
+					<p class="input-group">
+						<span  class="input-group-addon">
+							Final
+						</span>
+						<input type="text" class="form-control input-md" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="fecha.final" ng-init="open1 = false" is-open="open1"  max-date="hoy" datepicker-options="fecha.options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+						<span class="input-group-btn">
+	                		<button type="button" class="btn btn-default" ng-click="open1 = !open1"><i class="fa fa-calendar"></i></button>
+	              		</span>
+              		</p>					
+				</div>
+				<div class="col-sm-12 text-center">
+					<button class="btn btn-success btn-lg"  ng-click="vm.graficar()" > Graficar </button>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12 col-md-12 ">
+				<div class="chart-container">
+					<linechart data="chart.data" options="chart.options"></linechart>
+				</div>
+				<br>
+				<br />
+				<a  class="" ng-click="vm.imprimir()" ng-show="verTodo">Abrir como imagen</a>
+
+			</div>
+			<div class=" col-sm-12 col-xs-12 col-md-5  pull-righ" ng-show="verTodo">
+				<br>
+				<table class="table table-bordered table-stats " >
+					<thead>
+					<tr>
+						<th style="">No.</th>
+						<th style="">Nombre</th>
+						<th style="">Total</th>					
+					</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="valores in estadisticas">
+							<td class="text-center">{{$index+1}}</td>
+							<td class="text-center">{{valores.nombre}}  </td>	
+							<td class="text-center">{{valores.total}}  </td>					
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

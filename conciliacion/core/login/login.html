@@ -1,0 +1,43 @@
+<div ng-include="'conciliacion/core/login/template/navbar.html'"  ></div>
+
+<div class="container">
+	<div class="col-sm-12">
+		<div class="col-md-4 col-sm-offset-4 text-center">
+			<div class="">
+				<img class="" src="assets/img/logo/nubaPos.svg" style="width:150px">
+			</div>
+			
+		</div>
+	</div>
+
+
+
+
+	<div class="col-sm-12">
+		<div class="col-md-4 col-sm-offset-4">
+			<div class="data-tile">
+				<form name="login" class="form" role="form">
+					<div class="form-group" ng-class="{'has-error':vm.emailError}" >
+						<input type="text" class="form-control" ng-model="user.name" placeholder="Nombre de usuario" ng-class="{'has-error':vm.emailError}" required />
+						<span class="help-block has-error" ng-if="vm.emailError">
+							<span>El nombre de usuario no es valido</span>
+						</span>
+					</div>
+					 <br>
+					 <div class="form-group" ng-class="{'has-error':vm.passwordError}" >
+					 	<input type="password" class="form-control" ng-model="user.password" placeholder="Contraseña"  required />
+					 	<span class="help-block has-error" ng-if="vm.passwordError">
+							<span>Contraseña incorrecta</span>
+						</span>
+					 </div>
+					
+					
+					 <br>
+					<button ng-click="vm.logIn(user)"  ng-disabled="login.$invalid" class="btn btn-primary btn-sm">
+						Acceder
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

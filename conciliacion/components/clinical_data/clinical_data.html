@@ -1,0 +1,65 @@
+<div ng-include="'conciliacion/core/navbar/navbar.html'" ng-controller="navbarController" ></div>
+<div class="container">
+	<form class="form" name="personal_data">
+		<div class="data-tile">
+            <div class="row " >
+            	<div class="col-sm-12">
+                    <div class="form-group">
+                       <strong>Nombre del Paciente :</strong> {{vm.paciente.nombrePaciente}} {{vm.paciente.apellidoPaternoPaciente}} {{vm.paciente.apellidoMaternoPaciente}}
+                    </div>  
+            	</div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-4 col-md-3">
+            		<p class="help-block">Identificador*</p>
+                    <input type="text" ng-model="vm.paciente.identificadorDatosClinicos" placeholder="id" class="form-control"  required/>
+            	</div>
+            	<div class="col-sm-4 col-md-3">
+                    <p class="help-block">Cama / Cuarto*</p>
+                    <input type="text" ng-model="vm.paciente.camaDatosClinicos" placeholder="Cama/Cuarto" class="form-control"  required/>
+            	</div>
+            	<div class="col-sm-4 col-md-3">
+                        <p class="help-block">Área de atención*</p>
+                        <select ng-options="servicio as servicio.nombreServicio for servicio in vm.services" ng-model="vm.paciente.Servicio" placeholder="Servicio" class="form-control" required></select>
+            	</div>    
+            	<div class="col-sm-4 col-md-3">
+                    <p class="help-block">Fecha de hospitalización</p>
+                    <input type="date" ng-model="vm.paciente.ingresoDatosClinicos" placeholder="" class="form-control" />
+            	</div>   
+                <div class="col-sm-4 col-md-3">
+                    <p class="help-block">Talla</p>
+                    <input type="number" ng-model="vm.paciente.tallaDatosClinicos" placeholder="Talla en cm" class="form-control" />
+                </div> 
+                <div class="col-sm-4 col-md-3">
+                    <p class="help-block">Peso</p>
+                    <input type="number" ng-model="vm.paciente.pesoDatosClinicos" placeholder="Peso en kg" class="form-control" />
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <p class="help-block">Médico </p>
+                    <input type="text" ng-model="vm.paciente.doctorDatosClinicos" placeholder="Médico asignado" class="form-control" />
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <p class="help-block">Motivos del ingreso*</p>
+                    <textarea rows="2" type="text" ng-model="vm.paciente.motivoDatosClinicos" placeholder="Motivo de ingreso" class="form-control" required></textarea>
+                </div> 
+                
+                <div class="col-sm-6 col-md-6">
+                    <p class="help-block">Diagnostico del paciente</p>
+                    <textarea rows="2" type="text" ng-model="vm.paciente.diagnosticoDatosClinicos" placeholder="Diagnostico" class="form-control"></textarea>
+                </div>  
+                <div class="col-sm-6 col-md-6">
+                    <p class="help-block">Notas</p>
+                    <textarea rows="2" type="text" ng-model="vm.paciente.observacionDatosClinicos" placeholder="Notas y observaciones / enfermedades cronicas" class="form-control"></textarea>
+                </div> 
+                <div class="col-md-6 col-sm-6">  
+                    <br><br>
+                    <button class="btn btn-success btn-block" ng-disabled="personal_data.$invalid"  ng-click="vm.send(vm.paciente)" >Continuar </button>
+
+                </div>                                    
+            </div>
+
+
+        </div>        
+    </form>
+
+</div>

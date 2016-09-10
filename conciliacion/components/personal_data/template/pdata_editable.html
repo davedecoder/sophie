@@ -1,0 +1,34 @@
+  <form class="form" name="personal_data">
+    <div class="data-tile">
+            <div class="row " >
+              <div class="col-sm-12">
+                <p>Datos Personales</p>
+              </div>
+              <div class="col-sm-8 col-md-8">
+                  <div class="form-group">
+                      <p class="help-block">Nombre del Paciente*</p>
+                      <input type="text" ng-model="personal_data.nombrePaciente" placeholder="Nombre de Paciente" ng-disabled="datosClinicos" class="form-control" required>
+                  </div>              
+              </div>             
+                <div class="col-md-4 col-sm-4 col-xs-4 ">
+                  <div class="form-group">
+                      <p class="help-block">Fecha de nacimiento*</p>
+                      <input type="date" ng-model="personal_data.nacimientoPaciente" placeholder="Fecha de nacimiento" ng-disabled="datosClinicos" class="form-control" required>
+                  </div>                  
+                </div>   
+                <div class="col-md-4 col-sm-4 col-xs-4  "> 
+                  <div class="form-group">    
+                      <p class="help-block"> Genero* </p>
+                      &nbsp;
+                      &nbsp;
+                      <input type="radio" value="F" ng-disabled="datosClinicos" ng-model="personal_data.sexoPaciente"> F
+                      &nbsp;
+                      <input type="radio" value="M" ng-disabled="datosClinicos" ng-model="personal_data.sexoPaciente" > M
+                  </div>  
+                </div> 
+                <div class="col-md-4 col-sm-4 col-xs-4 ">  
+                    <br><br>
+                    <button class="btn btn-success btn-block" ng-hide="personal_data.$invalid && personal_data.sexoPaciente==undefined" ng-disabled="datosClinicos" ng-click="vm.postUser(personal_data)" >Continuar </button>
+                </div>
+            </div>
+  </form>

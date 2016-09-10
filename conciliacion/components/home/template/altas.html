@@ -1,0 +1,114 @@
+	    	<div class="data-tile">
+		    	<div class="row">
+					<div class="col-sm-4"><button  style="margin:5px" ng-click="vm.newPaciente()" class="btn btn-danger btn-block"><img style="width:30px;cursor:pointer"  src="assets/img/icon/Icono_NuevoPaciente.svg" >Nuevo Paciente</button></div>
+					<div class="col-sm-4"><button style="margin:5px" class="btn btn-warning btn-block" uib-btn-radio="true" ng-model="patients"><img style="width:30px;cursor:pointer" src="assets/img/icon/Icono_Paciente.svg" ng-init="patients = true">Ver Hospitalizados</button></div>
+					<div class="col-sm-4"><button style="margin:5px" class="btn btn-success btn-block" 
+					ng-model="patients" uib-btn-radio="false" ><img style="width:30px;cursor:pointer" src="assets/img/icon/Icono_Perfil.svg">Ver Altas</button></div>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-6"><br> 
+							<label for="" ng-if="!patients">
+								<h4>{{vm.altas.length}} Pacientes dados de alta  </h4>
+							</label>
+							<label for="" ng-if="patients">
+								<h4> {{vm.pacientes.length}} Pacientes hospitalizados</h4> 
+							</label>
+							</div>
+							<div class="col-sm-6" ><br>
+								<input type="text" ng-model="patient.filter"  class="form-control  " id="filterPatients" placeholder="Busqueda ">
+							</div>
+						</div>
+					</div>
+		    		<div class="col-xs-12 col-sm-12 col-md-12" >
+		    			<br>
+		    			<div class="table-responsive">
+			    			<table class="table table-hover table-striped">
+			    				<thead>
+			    					<th style="width:1px">No.</th>
+			    					<th class="col-sm-">Nombre</th>
+							  		<th class="col-sm-">Hospitalización</th>
+							  		<th class="col-sm-">Servicio</th>
+							  		<th class="col-sm-">Medico</th>
+							  		<th class="col-sm-">Diagnostico</th>
+							  		<th class="col-sm-">Notas</th>
+			    				</thead>
+			    				<tbody class="">
+				    				<tr ng-if="!patients" ng-repeat="paciente in vm.altas | filter: patient.filter  " ng-click="vm.toProfile(paciente.idPaciente)" style="cursor:pointer">
+				    					<td class="text-center" style="width:2px"> {{$index+1}} </td>
+				    					<td>{{ paciente.nombrePaciente }} {{ paciente.apellidoPaternoPaciente }}</td>
+				    					<td class="text-center">{{paciente.ingresoDatosClinicos | limitTo:10}} </td>
+				    					<td class="text-center">{{ paciente.nombreServicio }}</td>
+
+				    					<td class="text-center"> {{paciente.doctorDatosClinicos}} </td>
+
+				    					<td class="text-center">{{paciente.diagnosticoDatosClinicos}} </td>
+				    					
+				    					<td class="text-center"> {{paciente.observacionDatosClinicos}}  </td>
+				    				</tr>	
+
+				    				<tr ng-if="patients" ng-repeat="paciente in vm.pacientes | filter: patient.filter  " ng-click="vm.toProfile(paciente.idPaciente)" style="cursor:pointer">
+				    					<td style="width:1px">{{ $index+1 }} </td>
+				    					<td>{{ paciente.nombrePaciente }} {{ paciente.apellidoPaternoPaciente }}</td>
+				    					<td class="text-center">{{paciente.ingresoDatosClinicos | limitTo:10}} </td>
+				    					<td class="text-center">{{ paciente.nombreServicio }}</td>
+
+				    					<td class="text-center"> {{paciente.doctorDatosClinicos}} </td>
+
+				    					<td class="text-center">{{paciente.diagnosticoDatosClinicos}} </td>
+				    					
+				    					<td class="text-center"> {{paciente.observacionDatosClinicos}}  </td>
+				    				</tr>	
+
+
+			    				</tbody>
+
+							  
+							</table>		    				
+		    			</div>
+
+		    		</div>
+		    		<div ng-hide="true" class="hidden-xs hidden-sm col-md-4 "  >
+		    			<br>
+		    			<div class="data-tile">
+			    			<div class="row">
+								    <div class="col-sm-12 col-md-6">
+								      <strong>Paciente</strong><br>
+								      {{ vm.paciente.nombrePaciente }} {{ vm.paciente.apellidoPaternoPaciente }} {{ vm.paciente.apellidoMaternoPaciente}}
+								    </div>
+								    <div class="col-sm-12 col-md-6">
+								    	<strong>Cama</strong><br>
+								       {{vm.paciente.clinical.camaDatosClinicos}} - {{vm.paciente.clinical.nombreServicio }}
+								    </div>								    
+			    					<div class="col-sm-12"><br>
+			    						<strong>Diagnostico </strong><br>  {{ vm.paciente.clinical.diagnosticoDatosClinicos  }}
+			    					</div>
+			    					<div class="col-sm-12">
+			    						<hr>
+			    						<strong>Ultima Prescripción </strong><br> 
+			    						<div class="">
+				    						<table class="table table-hover" >
+												<thead>
+													<tr>
+														<th class="col-md-4" >Principio</th>
+														<th class="col-md-4" >Concentración</th>
+														<th class="col-md-4" >Via </th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="principio in vm.paciente.prescription[0]">
+														<td>{{principio.nombrePrincipio }} </td>
+														<td class="text-center"> {{ principio.concentracionDatosFarma}} - {{principio.abreviaturaUnidad}}</td>
+														<td class="text-center"  ng-bind-html= "principio.nombrePresentacion"></td>
+													</tr>
+					
+												</tbody>
+											</table>			    							
+			    						</div>
+			    						<button class="btn btn-default center-block" ng-click="vm.toProfile()">Ver perfil</button>
+			    					</div>			    					
+			    			</div>		    		
+		    			</div>
+		    		</div>
+    			    		
+		    	</div>
+	    	</div>

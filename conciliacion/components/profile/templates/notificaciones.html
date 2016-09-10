@@ -1,0 +1,78 @@
+
+			<div class="row">
+				<div class="col-sm-12">
+				<div class="" ng-if="vm.alertas.vistas.length + vm.alertas.idoneidad.length + vm.alertas.conciliacion.length == 0 "><br>
+					<h1 class='text-center'>El paciente no tiene Notificaciones reportadas</h1><br><br><br>		
+				</div>
+
+					<uib-alert ng-if="vm.alertas.idoneidad.length > 0" ng-repeat="alert in vm.alertas.idoneidad" type="danger" close="closeAlert(alert)">
+						{{alert.fechaAlerta}} |  <strong> {{alert.descripcionAlerta}}   </strong> 
+					</uib-alert>
+					<uib-alert ng-if="vm.alertas.conciliacion.length > 0" ng-repeat="alert in vm.alertas.conciliacion" type="warning" close="closeAlert(alert)">
+						{{alert.fechaAlerta}} | Conciliación <strong> {{alert.descripcionAlerta}}   </strong> 
+					</uib-alert>
+					<div class="big-history data-tile" ng-if="vm.alertas.vistas.length > 0">
+						<uib-alert  ng-repeat="alert in vm.alertas.vistas" type="info" >
+							{{alert.fechaAlerta}} | <strong> {{alert.descripcionAlerta}} </strong>    <span class="pull-right"><i class="fa fa-check-square-o"></i></span> 
+						</uib-alert>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+	<!--
+			<div class="data-tile">
+				<div class="row">
+					<div class="col-sm-12">
+						<table>
+							<thead>
+								<tr>
+									<th>Tipo de Alerta</th>
+									<th>Fecha </th>
+									<th>Detalles de interacción</th>									
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Interacción</td>
+								</tr>
+								<tr>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-sm-6"  ng-repeat="alerta in vm.alertas">
+						<div class="col-sm-12 tiny-history data-tile ">
+							
+						
+							<div class="row">
+								<div class="col-sm-12 text-center">
+									<h4>
+										<span ng-if="alerta.idTipoAlerta == 1"> Alerta de Conciliación </span>
+										<span ng-if="alerta.idTipoAlerta == 2"> Alerta de Idoneidad </span>
+										<span ng-if="alerta.idTipoAlerta == 3"> Alerta de Interaccion </span>	
+									</h4>		
+									<hr>
+								</div>
+								<div class="col-sm-9">
+									<p><strong>Observaciones</strong></p> {{alerta.notaAlerta}}
+								</div>
+								<div class="col-sm-3">
+									<button class="btn btn-success">Aceptar</button>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6"  ng-if="vm.alertas.length == 0">
+						<div class="col-sm-12 tiny-history data-tile ">
+							No hay notificaciones detectadas
+						</div>
+					</div>
+				</div>
+			</div>
+
+			-->

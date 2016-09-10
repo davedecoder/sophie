@@ -1,0 +1,48 @@
+
+
+  <nav id="myNavmenu"  class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation">
+    <br>
+    <img class="center-block" style="width:150px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/logo/nubaNeg.svg">
+    <div class="nav-divider"></div>
+    <img class="center-block" style="width:100px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/icon/Icono_Perfil.svg">
+    <div class="text-center">
+      {{vm.usuario.nombre}}
+    </div>
+    <div class="nav-divider"></div>
+    <ul class="list-inline" ng-init="menu = 1" >
+
+      <li ng-class="{'active':menu==1 }"  ng-click=" menu = 1;vm.goHome()" >
+         <img style="width:30px;cursor:pointer" src="assets/img/icon/Icono_Paciente.svg">  Pacientes    </li>
+      <li  ng-class="{'active':menu==2 }" ng-click="menu = 2">
+          <img style="width:30px;cursor:pointer" ng-click="" src="assets/img/icon/Icono_Notificaciones.svg">  Notificaciones
+      </li>
+      <li  ng-class="{'active':menu==3 }" ng-click="menu = 3">
+          <img style="width:30px;cursor:pointer" ng-click="" src="assets/img/icon/Icono_Interacciones.svg">  Interacciones
+      </li>
+      <li  ng-class="{'active':menu==4 }" ng-click="menu = 4">
+         <img style="width:30px;cursor:pointer" ng-click="" src="assets/img/icon/Icono_Estadistica.svg">  Estadisticas
+      </li>
+
+    </ul>
+    <div class="nav-divider"></div>
+    <ul class="list-inline" style="padding-top:0%">
+        <li uib-dropdown id="ayudaDom"  >
+           <span  uib-dropdown-toggle  >
+              <img style="width:30px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/icon/Icono_Ayuda.svg">  Ayuda 
+           </span>     
+              <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li><a href="http://nuba.cloudapp.net/_tip/Help-ATC-Index.php" target="_blank">Guía ATC</a></li>
+                <li><a href="http://www.drugs.com/drug_interactions.php" target="_blank">Interacciones</a></li>
+                <li><a href="http://www.facmed.unam.mx/bmnd/dirijo.php?bib_vv=6" target="_blank">PLM</a></li>
+                <li><a href="#/politicas" target="_blank">Politica de privacidad</a></li>
+              </ul>
+        </li>
+        <li class="" >
+           <img style="width:30px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/icon/Icono_Alertas.svg">  Alertas
+        </li>
+        <li class="" >
+           <img style="width:30px;cursor:pointer" ng-click="vm.goHome()" src="assets/img/icon/Icono_Configuracion.svg">  Ajustes
+        </li>        
+     </ul>
+  </nav>
+

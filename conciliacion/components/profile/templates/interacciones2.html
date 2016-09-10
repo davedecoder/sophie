@@ -1,0 +1,74 @@
+		<div class="data-tile">
+			<div class="row">
+			<div class="col-sm-12" ngif="vm.alertas.interacciones.length == 0">
+				<h3 class='text-center'>El paciente no tiene interacciones reportadas</h3>	
+			</div>
+				<div class="col-sm-12" ng-repeat="interaccion in vm.alertas.interacciones">
+					<div ng-if="interaccion.tipoInteraccion == 1">
+						<div  class="alert alert-warning" ng-repeat="alert in interaccion.medicamentos"  >
+
+							<table class="table text-center table-bordered">
+								<thead>
+									<tr>
+										<th class="col-sm-">Medicamento</th>
+										<th class="col-sm-">Alimento</th>
+										<th class="col-sm-">Categoria</th>
+										<th class="col-sm-" > 
+											Riesgo
+										</th>
+										<th class="col-sm-">
+											Sugerencia
+										</th>								
+									</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>{{ alert }} </td>
+									<td>{{interaccion.alimentoInteraccion}}</td>
+									<td>{{ interaccion.categorizacionInteraccion}}</td>
+									<td>
+										{{interaccion.detallesInteraccion}}
+									</td>
+									<td>{{ interaccion.sugerenciaInteraccion}}</td>
+								</tr>
+								</tbody>			
+							</table>
+
+						</div>
+					</div>
+					<div ng-if="interaccion.tipoInteraccion == 2">
+						<uib-alert  ng-repeat="alert in interaccion.medicamentos" type="warning" >
+
+							<table class="table text-center table-bordered">
+								<thead>
+									<tr>
+										<th class="col-sm-4">Medicamento</th>
+										<th class="col-sm-3">Categoria</th>
+										<th class="col-sm-3"> 
+											Riesgo
+										</th>
+										<th class="col-sm-3">
+											Sugerencia
+										</th>								
+									</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>{{ alert }} </td>
+									<td>{{ interaccion.categorizacionInteraccion}}</td>
+									<td>
+										{{interaccion.detallesInteraccion}}
+									</td>
+									<td>{{ interaccion.sugerenciaInteraccion}}</td>
+								</tr>
+								</tbody>			
+							</table>
+
+						</uib-alert>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>

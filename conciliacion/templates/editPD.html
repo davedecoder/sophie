@@ -1,0 +1,24 @@
+<div class="modal-body">
+<div class="container-fluid">
+		<div class="col-md-12">
+		<form class="form">
+                <div class="form-group">
+                    <p class="help-block">Ingrese el Nombre del Paciente</p>
+                    <input type="text" ng-model="paciente.nombrePaciente" placeholder="Nombre de Paciente" class="form-control" >
+                </div>
+            <div class="form-group">    
+                <label class="control-label"> Genero </label>
+                <input type="radio" value="F"  ng-model="paciente.sexoPaciente"> F
+                <input type="radio" value="M"  ng-model="paciente.sexoPaciente" > M
+            </div>     
+		</form>
+		</div>
+
+	</div>
+</div>
+<div class="modal-footer">
+        <a class="btn btn-danger btn-nb pull-left" ng-disabled="personal_data.$invalid" ng-click="cancel()" >Cancelar </a>
+        <button class="btn btn-success btn-nb pull-right" ng-disabled="personal_data.$invalid"  ng-click="ok()" >Continuar </button>
+</div>
+
+

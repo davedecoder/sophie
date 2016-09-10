@@ -1,0 +1,34 @@
+<form action="conciliacion/Rams.php" method="post" target="_blank">
+<div class="modal-header">
+	<div class="text-center">
+		<h4>Reportar Reacción Adversa</h4>
+	</div>
+</div>
+<div class="modal-body">
+<div class="container-fluid">
+		       <div class="form-group">
+	            <div class="input-group" ng-show="listaElementos.length == 0">
+	              <input type="text" ng-model="a" typeahead-on-select="aviable=true" typeahead="option as option.nombrePrincipio for option in meds | filter:$viewValue | limitTo:15" placeholder="Introduce el medicamento sospechoso" class="form-control">
+	              <span class="input-group-btn">
+	                <button class="btn " ng-disabled="!a" ng-click="add(a)" type="button">Agregar</button>
+	              </span>
+	            </div><!-- /input-group -->
+	          </div><!-- /.form-group -->
+	          <div class="list-group">  
+          	<div class="list-group-item" ng-repeat="elemento in listaElementos" style="font-size:22px" > {{elemento.nombrePrincipio}} 
+            	<img  class="trash-logo pull-right cursorPointer "  ng-if="!update" ng-click="deletingAlergy($index)"   ng-src="dist/img/icons/nuba/trashNull.png">
+            	<input type="hidden" name="df" ng-value="elemento.idDatosFarma" />
+            	<input type="hidden" name="k" ng-value="k" />
+            	<input type="hidden" name="tipo" value=2 />
+         	</div>
+          	<div class="list-group-item" ng-show="listaElementos.length == 0"> No hay datos registrados </div>
+      		</div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-danger btn-nb pull-left" type="button" ng-click="cancel()" >Cancelar</button>
+	<button class="btn btn-success btn-nb pull-right " ng-disabled="listaElementos.length == 0" type="submit"> Aceptar </button>
+	
+</div>
+</form>
+

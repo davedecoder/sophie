@@ -1,0 +1,28 @@
+
+Pendientes:
+	6.- En algunos navegadores, la hora de inicio la marca en am/pm, tenemos que asegurarnos que sea en 24 horas
+		propuesta de solución (http://tarruda.github.io/bootstrap-datetimepicker/).
+	7.- PDF con datos de la primer prescripcion del paciente
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Con Detalles por aclarar:
+	3.- Añadir input con fecha en la captura de la prescripcion (Arriba de la lista de medicamentos). // donde lo guardo o que trip.
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+Listos:
+	1.- Información del significado de los números de idoneidad.
+	2.- Añadir input para comentario en idoneidad
+	5.- Añadir el boton de cerrar sesion.
+	4.- Al estar modificando la posologia de un medicamento resaltar en verde que medicamento se esta modificando 
+	y el input del nombre tambien ponerlo en verde.
+

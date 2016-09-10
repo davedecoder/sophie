@@ -1,0 +1,177 @@
+			<div class="data-tile">
+				<div class="row">
+					<div class="col-md-10">
+						<table class="table" ng-if="vm.patient.prescription.length > 0">
+							<thead>
+								<tr>
+									<th>Principio/concentracion</th>
+									<th>Presentacion/via</th>
+									<th>Nota</th>							
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="principio in vm.patient.prescription[0]">
+									<td>{{ principio.nombrePrincipio}} - {{ principio.concentracionDatosFarma}} {{ principio.abreviaturaUnidad}}</td>
+									<td> <div ng-bind-html='principio.nombrePresentacion' ></div> - <div ng-bind-html=" principio.nombreVia"></div>
+									</td>
+									<td style=""><div ng-bind-html=" principio.notaDatosFarma"></div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-2">
+						<div class="btn-group-vertical btn-group-sm" role="group" >
+							<button class="btn btn-default" ng-click="vm.evaluar(vm.patient.prescription[0]);vm.evalIdoneidad=true; ">Evaluar idoneidad</button>
+							<button class="btn btn-default">Imprimir conciliación</button>
+							<button class="btn btn-default" ng-click="vm.traslado()">Traslado de área</button>
+							<button class="btn btn-default" ng-click="vm.nuevaConciliacion()">Nueva conciliación</button>
+							<button class="btn btn-default">Reportar interacción</button>
+							<button class="btn btn-default" ng-click="vm.egreso()">Egresar paciente</button>
+						</div>
+					</div>
+				</div>
+					<div class="row text-center " ng-show="vm.evalIdoneidad == true">
+						<div class="col-sm-10" >
+							<div class="row">
+								<div class="col-sm-12  ">
+										<div class="row table-header">
+											<div class="col-md-4 text-center"><h3>Medicamento</h3></div>	
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[0]}}" ><h3>1</h3></div>
+											<div class="col-md-1 text-center " tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[1]}}" ><h3>2</h3></div>
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[2]}}"><h3>3</h3></div>	
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[3]}}"><h3>4</h3></div>	
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[4]}}"><h3>5</h3></div>	
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[5]}}"><h3>6</h3></div>	
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[6]}}"><h3>7</h3></div>
+											<div class="col-md-1 text-center" tooltip-trigger="mouseenter"   uib-tooltip="{{optionLabels[7]}}"><h3>8</h3></div>		
+										</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="row table-row"   ng-repeat="principio in vm.estados track by $index">
+											<div class="col-md-4">{{ principio.nombrePrincipio}} </div>	
+
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i1 = vm.check(principio.i1.value)" class="btn btn-default" ng-class="principio.i1.state"> 
+													<span ng-class=" principio.i1.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i2 = vm.check(principio.i2.value)" class="btn btn-default" ng-class="principio.i2.state"> 
+													<span ng-class=" principio.i2.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i3 = vm.check(principio.i3.value)" class="btn btn-default" ng-class="principio.i3.state"> 
+													<span ng-class=" principio.i3.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i4 = vm.check(principio.i4.value)" class="btn btn-default" ng-class="principio.i4.state"> 
+													<span ng-class=" principio.i4.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i5 = vm.check(principio.i5.value)" class="btn btn-default" ng-class="principio.i5.state"> 
+													<span ng-class=" principio.i5.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i6 = vm.check(principio.i6.value)" class="btn btn-default" ng-class="principio.i6.state"> 
+													<span ng-class=" principio.i6.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i7 = vm.check(principio.i7.value)" class="btn btn-default" ng-class="principio.i7.state"> 
+													<span ng-class=" principio.i7.icon "></span>
+												</button>
+											</div>
+											<div class="col-md-1 text-center" >
+												<button  ng-click="principio.i8 = vm.check(principio.i8.value)" class="btn btn-default" ng-class="principio.i8.state"> 
+													<span ng-class=" principio.i8.icon "></span>
+												</button>
+											</div>
+															
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<br>
+									<button class="btn btn-default" ng-click="vm.cancelIdoneidad()"> Cancelar</button>
+									<button class="btn btn-default" ng-click="vm.evaluar(vm.patient.prescription[0])"> Reiniciar</button>
+									<button class="btn btn-default" ng-click="vm.saveIdoneidad()"> Terminar</button>
+									<br>
+								</div>
+								<div class="col-md-12" ng-show="vm.interaccion.medicamentos.length > 0" >
+								<hr>
+								<div class="row">
+									<div class="col-md-12 table-header">
+										<h4>Reporte de interaccion 
+											<span ng-show="vm.interaccion.tipoInteraccion == 1">Medicamento - Medicamento</span>
+											<span ng-show="vm.interaccion.tipoInteraccion == 2">Medicamento - Alimento</span> 
+										</h4>										
+									</div>
+									<div class="col-md-12">
+									<br>
+										<p>
+											Se ha detectado una interaccion en esta prescripcion, para terminar la evaluacion de idoneidad, es nesario reportar este problema.
+										</p>										
+									</div>
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-6">
+												<strong class="help-block">Repercución clinica</strong>
+											    <div class="btn-group">
+											        <label class="btn btn-default" ng-model="vm.interaccion.categorizacionInteraccion" uib-btn-radio="1" uncheckable>Menor</label>
+											        <label class="btn btn-default" ng-model="vm.interaccion.categorizacionInteraccion" uib-btn-radio="2" uncheckable>Moderada</label>
+											        <label class="btn btn-default" ng-model="vm.interaccion.categorizacionInteraccion" uib-btn-radio="3" uncheckable>Mayor</label>
+											    </div>
+											    <br>								
+										    </div>
+										    <div class="col-md-6" ng-if="vm.interaccion.tipo==2">
+												<strong class="help-block">Alimento involucrado:</strong>
+												<input type="text" class="form-control" />
+										    <br>										
+									    </div>
+										</div>
+
+									</div>
+									<div class="col-md-4 text-left">
+										<strong text-center>Medicamentos involucrados</strong>
+										<ul >
+		    								<li  class="col-xs-12" ng-repeat="principio in vm.interaccion.medicamentos track by $index">{{principio.nombrePrincipio}}</li>
+		    							</ul>
+									</div>
+									<div class="col-md-4">
+										<strong>Descripción de efectos</strong>
+										<textarea rows="3" ng-model="vm.interaccion.detallesInteraccion" class="form-control">
+											
+										</textarea>
+									</div>
+									<div class="col-md-4">
+										<strong>Sugerencia</strong>
+										<textarea rows="3" ng-model="vm.interaccion.sugerenciaInteraccion" class="form-control">
+											
+										</textarea>
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-default" ng-click="vm.postInteraccion()">Terminar</button>
+									</div>
+								</div>
+
+
+								</div>							
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="row">
+								<div class="col-sm-12 table-header">
+									<h3>Notas</h3>
+								</div>
+								<div class="col-sm-12">
+									<textarea rows="{{vm.patient.prescription[0].length}} " class="form-control" ng-model="vm.notaIdoneidad"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+			</div>
