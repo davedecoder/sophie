@@ -2,9 +2,9 @@ angular
     .module('app')
     .controller('homeController',homeController);
 
-homeController.$inject = ['$scope','homeService','navbarService'];
+homeController.$inject = ['$scope','homeService','navbarService', 'menuService'];
 
-function homeController($scope,homeService,navbarService){
+function homeController($scope,homeService,navbarService,menuService){
 	$scope.nav = navbarService;
 	$scope.nav.usuario = navbarService.getUsers();
 	$scope.vm = {
@@ -18,7 +18,8 @@ function homeController($scope,homeService,navbarService){
 		altas:[],
 		newPaciente:newPaciente,
 		imprimir:imprimir,
-		graficar: render
+		graficar: render,
+		toggleMenu: toggleMenu
 	};
 	var aux = new Date();
 	var opcionHelper;
@@ -64,6 +65,10 @@ function homeController($scope,homeService,navbarService){
 	$scope.estadisticas;
 
 	homeService.ready().then(homeReady,error);
+
+	function toggleMenu(){
+		console.log(menuService.toggleMenu());
+	}
 
 	function newPaciente() {
 		homeService.newPaciente();

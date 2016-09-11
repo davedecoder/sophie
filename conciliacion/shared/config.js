@@ -1,6 +1,7 @@
 angular
     .module('app')
-    .service('config',configService);
+    .service('config',configService)
+    .service('menuService', menuService);
         
 
 configService.$inject = ['$http','$location','$q','$cookies'];
@@ -116,4 +117,19 @@ function configService($http,$location,$q,$cookies){
         return url;
     }
 
+}
+
+function menuService(){
+    var activeMenu = true;
+
+    var service = {
+        toggleMenu: toggleMenu 
+    };
+
+    return service;
+
+    function toggleMenu(){
+        activeMenu = !activeMenu;
+        return activeMenu;
+    }
 }

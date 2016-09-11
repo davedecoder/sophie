@@ -10,5 +10,4 @@ angular
         $routeProvider.otherwise({ redirectTo: '/login', caseInsensitiveMatch: true });
         $locationProvider.html5Mode(false);
 
-
   }]);
